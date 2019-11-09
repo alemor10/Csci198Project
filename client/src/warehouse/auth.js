@@ -1,7 +1,7 @@
 import axios from 'axios';
 import router from '../router';
 
-const BASE_URL = 'http://localhost:5000'
+//const BASE_URL = 'http://localhost:5000'
 
 
 const state = {

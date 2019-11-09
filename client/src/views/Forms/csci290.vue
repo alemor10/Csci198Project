@@ -154,14 +154,23 @@
             v-model="description"
             :counter="500"
             label="enter text here"
+            loader-height="10"
             required
         >
         </v-text-field>
-        <v-divider></v-divider>
-
-        <h5> Signature of Supervising Instructor</h5>
-        
-    </v-form>
+        <h4> 3.Are you below a 3.0 GPA? </h4>
+        <v-select
+          v-model="select"
+          :items="items"
+          :error-messages="selectErrors"
+          label="Item"
+          required
+          @change="$v.select.$touch()"
+          @blur="$v.select.$touch()"
+        >
+        </v-select>
+        <v-btn class="mr-4" @click="submit">submit</v-btn>
+      </v-form>
     </v-card>
 </v-container>
 
