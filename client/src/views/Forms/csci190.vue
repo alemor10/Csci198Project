@@ -1,20 +1,20 @@
 <template>
-  <v-container>
+  <v-container
+    fluid
+  >
    <h1 class="subheading black--text">California State University, Fresno</h1>
       <h2 class="subheading black--text">Department of Computer Science</h2>
       <h3 class="subheading grey--text">CSCI 190 Undergraduate Independent Study</h3>
       <h3 class="subheading black--text"> Please complete and sign this form for authorization for an Undergraduate Independent Study.
       Upon approval from your Supervising Instructor and the Department chair, a section number and permission number will be issued to you. You must then register for the course through your "My Fresno State" portal.</h3>
-    <v-card>
-    <v-form v-model="valid">
-
+    <v-form @submit.prevent="submit">
         <v-row>
         <v-col
           cols="12"
           md="4"
         >
           <v-text-field
-            v-model="firstname"
+            v-model="form.firstname"
             :rules="nameRules"
             :counter="15"
             label="First name"
@@ -27,7 +27,7 @@
           md="4"
         >
           <v-text-field
-            v-model="lastname"
+            v-model="form.lastname"
             :rules="nameRules"
             :counter="15"
             label="Last name"
@@ -40,7 +40,7 @@
           md="4"
         >
         <v-text-field
-          v-model="studentID"
+          v-model="form.studentID"
           :rules="numberRules"
           label="Student ID"
           required
@@ -55,7 +55,7 @@
           md="4"
         >
         <v-text-field
-          v-model="studentEmail"
+          v-model="form.studentEmail"
           :rules="nameRules"
           :counter="15"
           label="Student Email"
@@ -69,9 +69,9 @@
         >
         <v-select
           v-model="select"
-          :items="items"
+          :items="form.semester"
           :error-messages="selectErrors"
-          label="Item"
+          label="Semester"
           required
           @change="$v.select.$touch()"
           @blur="$v.select.$touch()"
@@ -84,9 +84,9 @@
         >
         <v-select
           v-model="select"
-          :items="items"
+          :items="form.years"
           :error-messages="selectErrors"
-          label="Item"
+          label="Year"
           required
           @change="$v.select.$touch()"
           @blur="$v.select.$touch()"
@@ -111,9 +111,9 @@
         >
         <v-select
           v-model="select"
-          :items="items"
+          :items="form.units"
           :error-messages="selectErrors"
-          label="Item"
+          label="Number of Units"
           required
           @change="$v.select.$touch()"
           @blur="$v.select.$touch()"
@@ -129,7 +129,7 @@
           v-model="select"
           :items="items"
           :error-messages="selectErrors"
-          label="Item"
+          label="Supervising Instructor"
           required
           @change="$v.select.$touch()"
           @blur="$v.select.$touch()"
@@ -141,9 +141,9 @@
       <h4> 1. Check below which sense the proposed independent study project conforms to Item 1 of the regulations for independent study. </h4>
         <v-select
           v-model="select"
-          :items="items"
+          :items="form.option1"
           :error-messages="selectErrors"
-          label="Item"
+          label="Select one of the options"
           required
           @change="$v.select.$touch()"
           @blur="$v.select.$touch()"
@@ -151,7 +151,7 @@
         </v-select>
         <h4> 2. Describe briefly the nature of the independent study project to be undertaken and, if possible at this time, the title of the paper. </h4>
         <v-text-field
-            v-model="description"
+            v-model="form.description"
             :counter="500"
             label="enter text here"
             required
@@ -160,16 +160,51 @@
         <h4> 3.Are you below a 3.0 GPA? </h4>
         <v-select
           v-model="select"
-          :items="items"
+          :items="form.GPA"
           :error-messages="selectErrors"
-          label="Item"
+          label="Yes/No"
           required
           @change="$v.select.$touch()"
           @blur="$v.select.$touch()"
         >
         </v-select>
-        <v-btn class="mr-4" @click="submit">submit</v-btn>
+        <v-btn> hewoo </v-btn>
+        <h1> HEWOOO</h1>
     </v-form>
-    </v-card>
   </v-container>
 </template>
+
+
+<script>
+import { required, email, minLength } from "vuelidate/lib/validators";
+
+export default {
+  data() {
+    return {
+      form: {
+        firstname:'',
+        lastname:'',
+        studentID:'',
+        subject:'',
+        description:'', 
+        semester:['Fall','Spring'],
+        years:['2019','2020','2021', '2022',],
+        units:['1','2','3'],
+        option1:['Desire to pursue information not covered in a regular course', 'Desire to study a special area in greater depth given in a regular course'],
+        GPA:['Yes', 'No'],
+      }
+     } 
+    },
+    validations: {
+      form: {
+        firstname: { required, min: minLength(2) },
+        lastname: {required, min: minLength(2)},
+        studentID: {required},
+        email: { required, email },
+        subject: {required, min: minLength(10)},
+        description:{required}
+      }
+    }
+  
+}
+</script>
