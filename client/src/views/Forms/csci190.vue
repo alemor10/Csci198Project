@@ -185,6 +185,7 @@ export default {
         firstname:'',
         lastname:'',
         studentID:'',
+        studentEmail:'',
         subject:'',
         description:'', 
         semester:['Fall','Spring'],
