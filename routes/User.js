@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-const key = require('../config/keys')
+const key = require('../config/keys').secret
 const User = require('../models/users')
 const saltRounds = 10;
 /**
@@ -95,8 +95,6 @@ router.post('/login', (req, res) => {
         }
         // If there is user we are now going to compare the password
         bcrypt.compare(req.body.password, user.password,function(err,data) {
-        console.log(data)
-        console.log(req.body.password , user.password)
             if (data==true) {
                 // User's password is correct and we need to send the JSON Token for that user
                 const payload = {

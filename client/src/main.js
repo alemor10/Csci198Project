@@ -6,6 +6,12 @@ import vuetify from './plugins/vuetify' // path to vuetify export
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import axios from 'axios'
 
+import Vuelidate from 'vuelidate'
+import VueSignaturePad from 'vue-signature-pad';
+ 
+Vue.use(VueSignaturePad);
+Vue.use(Vuelidate)
+
 Vue.config.productionTip = false
 
 // Setting up default vue's http modules for api calls

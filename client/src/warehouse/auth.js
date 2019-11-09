@@ -1,6 +1,9 @@
 import axios from 'axios';
 import router from '../router';
 
+const BASE_URL = 'http://localhost:5000'
+
+
 const state = {
     token: localStorage.getItem('token') || '',
     user: {},
@@ -29,7 +32,7 @@ const actions = {
     }, user) {
         commit('auth_request');
         try {
-            let res = await axios.post('http://localhost:5000/users/login', user)
+            let res = await axios.post('/users/login', user)
             if (res.data.success) {
                 const token = res.data.token;
                 const user = res.data.user;
