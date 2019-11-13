@@ -7,7 +7,7 @@
       <h3 class="subheading grey--text">CSCI 198 Senior Project</h3>
       <h3 class="subheading black--text"> Please complete and sign this form for authorization for a restricted supervision course.
       Upon approval of the Department chair, a section number and permission number will be issued to you. You must then register for the course through your "My Fresno State" portal.</h3>
-    <v-form class="px-3" ref="form">
+    <v-form class="px-3" v-model="valid">
         <v-row>
         <v-col
           cols="12"
@@ -15,8 +15,8 @@
         >
           <v-text-field
             v-model="form.firstname"
-            :counter="15"
-            :rules="namesrules"
+            :counter="12"
+            :rules="[required,minLength,maxLength]"
             label="First name"
             required
           >
@@ -28,9 +28,9 @@
         >
           <v-text-field
             v-model="form.lastname"
-            :counter="15"
-            :rules="namesrules"
+            :counter="12"
             label="Last name"
+            :rules="[required,minLength,maxLength]"
             required
           >
           </v-text-field>
@@ -39,12 +39,13 @@
           cols="12"
           md="4"
         >
-        <v-text-field
-          v-model="form.studentID"
-          label="Student ID"
-          required
-        >
-        </v-text-field>
+          <v-text-field
+            v-model="form.studentID"
+            label="Student ID"
+            :rules="[required]"
+            required
+          >
+          </v-text-field>
         </v-col>
         </v-row>
         <v-row>
@@ -53,42 +54,85 @@
           cols="12"
           md="4"
         >
-        <v-text-field
-          v-model="form.studentEmail"
-          :counter="15"
-          label="Student Email"
+          <v-text-field
+            v-model="form.studentEmail"
+            :counter="15"
+            :rules="[required]"
+            label="Student Email"
+            required
+          >
+          </v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+        <v-select
+          v-model="form.semester"
+          :items="semester"
+          :rules="[required]"
+          label="Semester"
           required
         >
-        </v-text-field>
+        </v-select>
         </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+        <v-select
+          v-model="form.years"
+          :items="years"
+          :rules="[required]"
+          label="Year"
+          required
+        >
+        </v-select>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+        <v-select
+          v-model="form.units"
+          :items="units"
+          :rules="[required]"
+          label="Units"
+          required
+        >
+        </v-select>
+        </v-col>
+        
 
         <v-col
         >
-        <v-text-field
-          v-model="form.projectTitle"
-          :counter="15"
-          label="Project Title"
-          required
-        >
-        </v-text-field>
+          <v-text-field
+            v-model="form.projectTitle"
+            :counter="12"
+            label="Project Title"
+            :rules="[required,minLength,maxLength]"
+            required
+          >
+          </v-text-field>
         </v-col>               
         </v-row>
         <v-divider></v-divider>
         <h3> Select your start date and completion date. </h3>
         <v-row justify="space-around">
-        <v-date-picker v-model="form.picker" color="green lighten-1"></v-date-picker>
-        <v-date-picker v-model="form.picker2" color="green lighten-1" header-color="primary"></v-date-picker>
+        <v-date-picker v-model="form.picker" :rules="[required]" color="green lighten-1"></v-date-picker>
+        <v-date-picker v-model="form.picker2" :rules="[required]" color="green lighten-1" header-color="primary"></v-date-picker>
         </v-row>
         <h3> 2. Briefly describe the nature of the your project </h3>
         <v-text-field
             v-model="form.description"
             :counter="500"
             label="enter text here"
+            :rules="[required,descminLength,descmaxLength]"
             required
         >
         </v-text-field>
       
-        <v-btn @click="submit">submit</v-btn>
+        <v-btn @click="submit" :disabled="!valid">submit</v-btn>
         <h4>hewooo</h4>
     </v-form>
   </v-container> 
@@ -96,11 +140,22 @@
 </template>
 
 <script>
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email, minLength,maxLength } from "vuelidate/lib/validators";
 
 export default {
   data() {
     return {
+      valid:false,
+      semester:['Fall','Spring'],
+      years:['2019','2020','2021', '2022',],
+      units:['1','2','3'],
+      picker: new Date().toISOString().substr(0, 10),
+      picker2: new Date().toISOString().substr(0, 10),
+      required: v => v.length > 0|| 'This field cannot be empty.',
+      minLength: v => v.length >= 2 || 'This field must be at least two characters long',
+      maxLength: v => v.length <= 12 || 'This field can only be twelve characters long',
+      descminLength: v => v.length > 20 || 'This field must be at least twenty characters long',
+      descmaxLength: v => v.length <= 500 || 'This field can only be five hundred characters long',   
       form: {
         firstname:'',
         lastname:'',
@@ -114,37 +169,27 @@ export default {
         startdate: '',
         enddate: '',
       },
-        semester:['Fall','Spring'],
-        years:['2019','2020','2021', '2022',],
-        units:['1','2','3'],
-        picker: new Date().toISOString().substr(0, 10),
-        picker2: new Date().toISOString().substr(0, 10),
-        namerules: [
-          v => v.length >= 2|| 'Minimum length is 2 Characters'
-        ]
-    
-    
     }
   },
   validations: {
     form: {
-      firstname: { required, min: minLength(2) },
-      lastname: {required, min: minLength(2)},
+      firstname: { required, min: minLength(2), max:maxLength(12) },
+      lastname: {required, min: minLength(2), max:maxLength(12)},
       studentID: {required},
-      email: { required, email },
-      subject: {required, min: minLength(10)},
-      description:{required},
-      picker: {required},
-      picker2:{required}
+      studentEmail: { required, email },
+      projectTitle: {required, min: minLength(2),max:maxLength(12)},
+      description:{required,  min: minLength(20),max:maxLength(500)},
+      semester: {required},
+      years: {required},
+      units:{required},
+      startdate: {required},
+      enddate:{required}
     }
   },
   methods: {
     submit() {
-      window.console.log('hewwo');
-      this.$v.$touch();
-      if(this.$v.$invalid) {
-        window.console.log('no par')
-      }
+      window.console.log(this.form.semester);
+
     }
   },
 }
