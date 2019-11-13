@@ -1,7 +1,5 @@
 <template>
  <v-content>
-    <section>
-      
        <v-parallax src="../assets/para2.jpeg" height="700">
         <v-layout
             column
@@ -17,8 +15,6 @@
           <h1 class="white--text mb-2 display-1 text-center">Department of Computer Science</h1>
         </v-layout>
       </v-parallax>
-    </section>
-    <section>
       <v-layout
         column
         wrap
@@ -34,7 +30,6 @@
         </div>
       </v-flex>
      </v-layout>
-    </section>
  </v-content>
  
 </template>

@@ -32,7 +32,7 @@ const actions = {
     }, user) {
         commit('auth_request');
         try {
-            let res = await axios.post('/users/login', user)
+            let res = await axios.post('http://localhost:5000/users/login', user)
             if (res.data.success) {
                 const token = res.data.token;
                 const user = res.data.user;
@@ -47,13 +47,13 @@ const actions = {
             commit('auth_error', err);
         }
     },
-    // Register User
+
     async register({
         commit
     }, userData) {
         try {
             commit('register_request');
-            let res = await axios.post('/users/register', userData);
+            let res = await axios.post('http://localhost:5000/users/register', userData);
             if (res.data.success !== undefined) {
                 commit('register_success');
             }
@@ -83,7 +83,7 @@ const actions = {
     }
 };
 
-const mutations = {
+const mutations = {    // Register User
     auth_request(state) {
         state.error = null
         state.status = 'loading'
