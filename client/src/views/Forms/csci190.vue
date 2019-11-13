@@ -15,7 +15,6 @@
         >
           <v-text-field
             v-model="form.firstname"
-            :rules="nameRules"
             :counter="15"
             label="First name"
             required
@@ -28,7 +27,6 @@
         >
           <v-text-field
             v-model="form.lastname"
-            :rules="nameRules"
             :counter="15"
             label="Last name"
             required
@@ -56,7 +54,6 @@
         >
         <v-text-field
           v-model="form.studentEmail"
-          :rules="nameRules"
           :counter="15"
           label="Student Email"
           required

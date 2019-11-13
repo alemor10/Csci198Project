@@ -3,7 +3,7 @@
 
    <NavBar/>
     <v-content transition="slide-x-transition">
-      <Errors v-if="error" :msg="error"/>
+//
       <router-view/>
     </v-content>
   <Footer/>
@@ -15,13 +15,13 @@
 <script>
 import NavBar from './components/NavBar.vue'
 import Footer from './components/Footer.vue'
-import Errors from './components/Errors.vue'
+//import Errors from './components/Errors.vue'
 export default {
   name: 'app',
   components: {
     NavBar,
     Footer,
-    Errors
+   // Errors
   }
 }
 </script>

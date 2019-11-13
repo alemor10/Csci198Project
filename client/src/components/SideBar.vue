@@ -7,7 +7,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="title">
-          Welcome {{name}}
+          Welcome 
         </v-list-item-title>
           <v-list-item-subtitle>
            :)
