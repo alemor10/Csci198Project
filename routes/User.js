@@ -36,8 +36,8 @@ router.post('/register', (req, res) => {
           });
       }
   })
-  /*
-  // Check for the Unique Email
+  
+//Check for the Unique Email
   User.findOne({
       email: email
   }).then(user => {
@@ -47,10 +47,10 @@ router.post('/register', (req, res) => {
           });
       }
   });
-  */
   // The data is valid and new we can register the user
   let newUser = new User({
       username,
+      email,
       password,
   });
   // Hash the password
@@ -122,7 +122,7 @@ router.post('/login', (req, res) => {
                 });
             }
         })
-  });
+  });   
 });
 
 

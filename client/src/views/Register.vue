@@ -5,37 +5,33 @@
         <h1>Sign Up</h1>
       </v-flex>
       <v-flex xs12 sm6 offset-sm3 mt-3>
-        <form>
+        <v-form @submit.prevent="registerUser">
           <v-layout column>
             <v-flex>
               <v-text-field
-                name="username"
+                v-model="username"
                 label="User name"
-                id="username"
-                type="username"
                 required></v-text-field>
             </v-flex>
             <v-flex>
               <v-text-field
-                name="email"
+                v-model="email"
                 label="Email"
-                id="email"
-                type="email"
-                required></v-text-field>
+                required>
+              </v-text-field>
             </v-flex>
             <v-flex>
               <v-text-field
-                name="password"
+                v-model="password"
                 label="Password"
-                id="password"
                 type="password"
-                required></v-text-field>
+                required>
+              </v-text-field>
             </v-flex>
             <v-flex>
               <v-text-field
-                name="confirmPassword"
+                v-model="confirm_password"
                 label="Confirm Password"
-                id="confirmPassword"
                 type="password"
                 required
                 ></v-text-field>
@@ -44,7 +40,7 @@
               <v-btn color="primary" type="submit">Sign Up</v-btn>
             </v-flex>
           </v-layout>
-        </form>
+        </v-form>
       </v-flex>
     </v-layout>
   </v-container>
@@ -65,6 +61,7 @@ export default {
   methods: {
     ...mapActions(["register"]),
     registerUser() {
+      window.console.log(this.username,this.email,this.password)
       let user = {
         username: this.username,
         password: this.password,
@@ -74,7 +71,7 @@ export default {
       };
       this.register(user).then(res => {
         if (res.data.success) {
-          this.$router.push("login");
+          this.$router.push("dashboard");
         }
       });
     }
