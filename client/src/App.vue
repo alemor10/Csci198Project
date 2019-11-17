@@ -3,7 +3,7 @@
 
    <NavBar/>
     <v-content transition="slide-x-transition">
-//
+
       <router-view/>
     </v-content>
   <Footer/>

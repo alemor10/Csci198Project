@@ -33,7 +33,7 @@ const router = new Router({
       name: 'dashboard',
       component: () => import('./views/Dashboard.vue'),
       meta: {
-        // requiresAuth: true
+         requiresAuth: true
       }
     },
     {
@@ -41,7 +41,7 @@ const router = new Router({
       name: 'forms',
       component: () => import('./views/Forms.vue'),
       meta: {
-        // requiresAuth: true
+         requiresAuth: true
       }
     },
     {
@@ -49,7 +49,7 @@ const router = new Router({
       name: 'csci190',
       component: () => import('./views/Forms/csci190.vue'),
       meta: {
-        // requiresAuth: true
+         requiresAuth: true
       }
     },
     {
@@ -57,7 +57,7 @@ const router = new Router({
       name: 'csci194',
       component: () => import('./views/Forms/csci194.vue'),
       meta: {
-        // requiresAuth: true
+         requiresAuth: true
       }
     },
     {
@@ -65,7 +65,7 @@ const router = new Router({
       name: 'csci198',
       component: () => import('./views/Forms/csci198.vue'),
       meta: {
-        // requiresAuth: true
+        requiresAuth: true
       }
     },
     {
@@ -81,7 +81,7 @@ const router = new Router({
       name: 'csci298',
       component: () => import('./views/Forms/csci298.vue'),
       meta: {
-        // requiresAuth: true
+        requiresAuth: true
       }
     },
     {
@@ -89,7 +89,7 @@ const router = new Router({
       name: 'csci298C',
       component: () => import('./views/Forms/csci298C.vue'),
       meta: {
-        // requiresAuth: true
+         requiresAuth: true
       }
     },
     {
@@ -97,7 +97,7 @@ const router = new Router({
       name: 'csci299',
       component: () => import('./views/Forms/csci299.vue'),
       meta: {
-        // requiresAuth: true
+         requiresAuth: true
       }
     },
   ]

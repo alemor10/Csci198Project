@@ -188,7 +188,8 @@ export default {
   },
   methods: {
     submit() {
-      window.console.log(this.form.semester);
+      window.console.log('hellop');
+      window.console.log(this.form);
 
     }
   },
