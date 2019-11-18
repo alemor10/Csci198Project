@@ -1,0 +1,6 @@
+const mongoose = require('mongoose');
+const Schema = require('mongoose').Schema;
+
+const Students = new Schema({
+    
+})

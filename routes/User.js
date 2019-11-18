@@ -17,8 +17,9 @@ router.post('/register', (req, res) => {
   let {
       username,
       password,
+      confirm_password,
       email,
-      confirm_password
+      role
   } = req.body
   if (password !== confirm_password) {
       return res.status(400).json({
@@ -51,6 +52,7 @@ router.post('/register', (req, res) => {
   let newUser = new User({
       username,
       email,
+      role,
       password,
   });
   // Hash the password

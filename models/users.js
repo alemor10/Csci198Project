@@ -23,23 +23,11 @@ const UserSchema  = new Schema({
     type: String, 
     required: true,   
   },
-  address: { 
-    type: String, 
-    required: false,
+  role: {
+    type: String
   },
-  age: {
-    type:Number,
-    required: false,
-  },  
-  studentID: {
-    type:Number,
-    required: false,
-  },
-  date: {
-    type: Date,
-    default: Date.now
-  },
-  
+
+
 
 });
 

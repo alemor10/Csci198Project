@@ -10,7 +10,7 @@
             <v-flex>
               <v-text-field
                 v-model="username"
-                label="User name"
+                label="Username"
                 required></v-text-field>
             </v-flex>
             <v-flex>
@@ -36,6 +36,16 @@
                 required
                 ></v-text-field>
             </v-flex>
+            <v-flex>
+              <v-select
+                v-model="role"
+                :items="roles"
+                :rules="[required]"
+                label="Select your Role"
+                required
+              >
+              </v-select>
+            </v-flex>
             <v-flex class="text-xs-center" mt-5>
               <v-btn color="primary" type="submit">Sign Up</v-btn>
             </v-flex>
@@ -48,26 +58,43 @@
 
 <script>
 import { mapActions } from "vuex";
+import { required, email, minLength,maxLength,sameAs } from "vuelidate/lib/validators";
+
 export default {
   name: "Register",
   data() {
     return {
-      username: "",
-      password: "",
-      confirm_password: "",
-      email: ""
+      roles:['Student','Instructor','Secretary'],
+      required: v => v.length > 0|| 'This field cannot be empty.',
+      minLength: v => v.length >= 6 || 'This field must be at least two characters long',
+      descminLength: v => v.length > 20 || 'This field must be at least twenty characters long', 
+      user: {
+        username: "",
+        password: "",
+        confirm_password: "",
+        role: "",
+        email: ""
+      }
     };
   },
+  validators: {
+    user: {
+      username: { required },
+      email: { required },
+      password: { required, minLength:minLength(6)},
+      confirm_password: { required, sameAs:sameAs('password')}
+    }
+  }
   methods: {
     ...mapActions(["register"]),
     registerUser() {
       window.console.log(this.username,this.email,this.password)
       let user = {
-        username: this.username,
-        password: this.password,
-        confirm_password: this.confirm_password,
-        email: this.email,
-        name: this.name
+        username: this.user.username,
+        password: this.user.password,
+        confirm_password: this.user.confirm_password,
+        email: this.user.email,
+        role: this.user.role
       };
       this.register(user).then(res => {
         if (res.data.success) {
