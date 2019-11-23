@@ -37,12 +37,14 @@ const actions = {
             let res = await axios.post('http://localhost:5000/users/login', user)
             if (res.data.success) {
                 const token = res.data.token;
-                const user = res.data.user;
+                let user = res.data.user;
+                const userrole = user['role']
+                window.console.log(userrole)
                 // Store the token into the localstorage
                 localStorage.setItem('token', token);
                 // Set the axios defaults
                 axios.defaults.headers.common['Authorization'] = token;
-                commit('auth_success', token, user);
+                commit('auth_success', token, user,userrole);
             }
             return res;
         } catch (err) {
@@ -69,7 +71,7 @@ const actions = {
         commit
     }) {
         commit('profile_request');
-        let res = await axios.get('/users/profile')
+        let res = await axios.get('http://localhost:5000/users/profile')
         commit('user_profile', res.data.user)
         return res;
     },
@@ -90,9 +92,10 @@ const mutations = {    // Register User
         state.error = null
         state.status = 'loading'
     },
-    auth_success(state, token, user) {
+    auth_success(state, token, user, role) {
         state.token = token
         state.user = user
+        state.role = role
         state.status = 'success'
         state.error = null
     },
@@ -115,6 +118,7 @@ const mutations = {    // Register User
         state.status = ''
         state.token = ''
         state.user = ''
+        state.role = ''
     },
     profile_request(state) {
         state.status = 'loading'

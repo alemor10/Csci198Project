@@ -41,7 +41,16 @@ const router = new Router({
       name: 'forms',
       component: () => import('./views/Forms.vue'),
       meta: {
-         requiresAuth: true
+         requiresAuth: true,
+      }
+    },
+    {
+      path: '/studentforms',
+      name: 'studentforms',
+      component: () => import('./views/StudentForms.vue'),
+      meta: {
+         requiresAuth: true,
+         requiresInstructor:true
       }
     },
     {
@@ -49,7 +58,9 @@ const router = new Router({
       name: 'csci190',
       component: () => import('./views/Forms/csci190.vue'),
       meta: {
-         requiresAuth: true
+         requiresAuth: true,
+         requiresStudent: true
+
       }
     },
     {
@@ -57,7 +68,9 @@ const router = new Router({
       name: 'csci194',
       component: () => import('./views/Forms/csci194.vue'),
       meta: {
-         requiresAuth: true
+         requiresAuth: true,
+         requiresStudent: true
+
       }
     },
     {
@@ -65,7 +78,8 @@ const router = new Router({
       name: 'csci198',
       component: () => import('./views/Forms/csci198.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresStudent:true
       }
     },
     {
@@ -73,7 +87,8 @@ const router = new Router({
       name: 'csci290',
       component: () => import('./views/Forms/csci290.vue'),
       meta: {
-        // requiresAuth: true
+         requiresAuth: true,
+         requiresStudent: true
       }
     },
     {
@@ -81,7 +96,8 @@ const router = new Router({
       name: 'csci298',
       component: () => import('./views/Forms/csci298.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresStudent: true
       }
     },
     {
@@ -89,7 +105,8 @@ const router = new Router({
       name: 'csci298C',
       component: () => import('./views/Forms/csci298C.vue'),
       meta: {
-         requiresAuth: true
+         requiresAuth: true,
+         requiresStudent: true
       }
     },
     {
@@ -97,28 +114,63 @@ const router = new Router({
       name: 'csci299',
       component: () => import('./views/Forms/csci299.vue'),
       meta: {
-         requiresAuth: true
+         requiresAuth: true,
+         requiresStudent: true
       }
     },
   ]
 });
+
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isLoggedIn) {
       // Redirect to the Login Page
       next('/login');
-    } else {
-      next();
+    } 
+    else {
+      let user = store.getters.user
+      if(to.matched.some(record => record.meta.requiresStudent))
+      {
+        //let user = store.getters.user 
+        //const role = user['role']
+
+        window.console.log('student',user['role'])
+        if(user['role'] != 'Student')
+        {
+          next('Dashboard');
+        }
+        else {
+          next();
+        }
+      }
+      else if (to.matched.some(record => record.meta.requiresInstructor))
+      {
+        window.console.log('teacher',user['role'])
+        if(store.getters.user['role'] != 'Instructor')
+        {
+          next('Dashboard');
+        }
+        else {
+          next();
+        }
+      
+      }
+      else{
+        next();
+      }
     }
-  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+  }
+  else if (to.matched.some(record => record.meta.requiresGuest)) {
     if (store.getters.isLoggedIn) {
       // Redirect to the Login Page
       next('/profile');
-    } else {
+    } 
+    else {
       next();
     }
-  } else {
+  }
+  else {
     next()
   }
 });

@@ -88,7 +88,6 @@ router.post('/login', (req, res) => {
     User.findOne({
         'username': req.body.username
     }).then(user => {
-        console.log(user)
         if (!user) {
             return res.status(404).json({
                 msg: "Username is not found.",
@@ -102,13 +101,15 @@ router.post('/login', (req, res) => {
                 const payload = {
                   _id: user._id,
                   username: user.username,
+                  role: user.role,
                   name: user.name,
                   email: user.email
                 }
                 jwt.sign(payload, key, {
                   expiresIn: 604800
                 }, 
-                (err, token) => {    
+                (err, token) => {  
+                    console.log(user)  
                   res.status(200).json({
                     success: true,
                     token: `Bearer ${token}`,
@@ -125,6 +126,19 @@ router.post('/login', (req, res) => {
             }
         })
   });   
+
+  /**
+ * @route POST api/users/profile
+ * @desc Return the User's Data
+ * @access Private
+ */
+    router.get('/profile', passport.authenticate('jwt', {
+      session: false
+    }), (req, res) => {
+        return res.json({
+            user: req.user
+        });
+    });
 });
 
 
