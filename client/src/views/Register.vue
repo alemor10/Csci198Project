@@ -9,20 +9,20 @@
           <v-layout column>
             <v-flex>
               <v-text-field
-                v-model="username"
+                v-model="user.username"
                 label="Username"
                 required></v-text-field>
             </v-flex>
             <v-flex>
               <v-text-field
-                v-model="email"
+                v-model="user.email"
                 label="Email"
                 required>
               </v-text-field>
             </v-flex>
             <v-flex>
               <v-text-field
-                v-model="password"
+                v-model="user.password"
                 label="Password"
                 type="password"
                 required>
@@ -30,7 +30,7 @@
             </v-flex>
             <v-flex>
               <v-text-field
-                v-model="confirm_password"
+                v-model="user.confirm_password"
                 label="Confirm Password"
                 type="password"
                 required
@@ -38,7 +38,7 @@
             </v-flex>
             <v-flex>
               <v-select
-                v-model="role"
+                v-model="user.role"
                 :items="roles"
                 :rules="[required]"
                 label="Select your Role"
@@ -58,7 +58,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { required, email, minLength,maxLength,sameAs } from "vuelidate/lib/validators";
+import { required, minLength,sameAs } from "vuelidate/lib/validators";
 
 export default {
   name: "Register",
@@ -84,11 +84,10 @@ export default {
       password: { required, minLength:minLength(6)},
       confirm_password: { required, sameAs:sameAs('password')}
     }
-  }
+  },
   methods: {
     ...mapActions(["register"]),
     registerUser() {
-      window.console.log(this.username,this.email,this.password)
       let user = {
         username: this.user.username,
         password: this.user.password,
