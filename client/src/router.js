@@ -50,7 +50,7 @@ const router = new Router({
       component: () => import('./views/StudentForms.vue'),
       meta: {
          requiresAuth: true,
-         requiresInstructor:true
+         requiresTeacher:true
       }
     },
     {
@@ -129,38 +129,36 @@ router.beforeEach((to, from, next) => {
       // Redirect to the Login Page
       next('/login');
     } 
-    else {
+    else 
+    {
       let user = store.getters.user
+      window.console.log('huh1',user)
+      if(to.matched.some(record => record.meta.requiresTeacher))
+      {
+        
+        if(user['role'] != 'Instructor')
+        {
+          window.console.log('huhTEACHER',user)
+          next('Dashboard');
+        }
+        else {
 
-      if(to.matched.some(record => record.meta.requiresStudent ||to.matched.some(record => record.meta.requiresStudent) ))
+          next();
+        }
+
+      }
+      else if(to.matched.some(record => record.meta.requiresStudent))
       {
         if(user['role'] != 'Student')
         {
-          window.console.log('suppy',user['role'])
+          window.console.log('huh',user)
           next('Dashboard');
         }
         else {
-          window.console.log(user)
+
           next();
         }
-      }
-      else if (to.matched.some(record => record.meta.requiresInstructor))
-      {
-       
-        if (user)
-          window.console.log('why',user)
-        else {
-          window.console.log('why')
-        }
-        if(user['role'] != 'Instructor')
-        {
-          window.console.log('suppy2',user)
-          next('Dashboard');
-        }
-        else {
-          next();
-        }
-      
+
       }
       else{
         next();
