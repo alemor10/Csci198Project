@@ -131,14 +131,11 @@ router.beforeEach((to, from, next) => {
     } 
     else 
     {
-      let user = store.getters.user
-      window.console.log('huh1',user)
       if(to.matched.some(record => record.meta.requiresTeacher))
       {
         
-        if(user['role'] != 'Instructor')
+        if(store.getters.role != 'Instructor')
         {
-          window.console.log('huhTEACHER',user)
           next('Dashboard');
         }
         else {
@@ -149,9 +146,9 @@ router.beforeEach((to, from, next) => {
       }
       else if(to.matched.some(record => record.meta.requiresStudent))
       {
-        if(user['role'] != 'Student')
+        if(store.getters.role != 'Student')
         {
-          window.console.log('huh',user)
+          window.console.log('huh')
           next('Dashboard');
         }
         else {

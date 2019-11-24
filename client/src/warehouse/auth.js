@@ -125,8 +125,8 @@ const mutations = {    // Register User
         state.status = 'loading'
     },
     user_profile(state, user) {
-        state.role = user['role']
         state.user = user
+        state.role = user['role']
     },
 };
 
