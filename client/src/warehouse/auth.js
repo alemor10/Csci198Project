@@ -37,14 +37,13 @@ const actions = {
             let res = await axios.post('http://localhost:5000/users/login', user)
             if (res.data.success) {
                 const token = res.data.token;
-                let user = res.data.user;
-                const userrole = user['role']
-                window.console.log(userrole)
                 // Store the token into the localstorage
                 localStorage.setItem('token', token);
                 // Set the axios defaults
                 axios.defaults.headers.common['Authorization'] = token;
-                commit('auth_success', token, user,userrole);
+                commit('auth_success', token, user);
+                
+                
             }
             return res;
         } catch (err) {
@@ -72,6 +71,7 @@ const actions = {
     }) {
         commit('profile_request');
         let res = await axios.get('http://localhost:5000/users/profile')
+
         commit('user_profile', res.data.user)
         return res;
     },
@@ -85,6 +85,7 @@ const actions = {
         router.push('/login');
         return
     }
+
 };
 
 const mutations = {    // Register User
@@ -92,12 +93,12 @@ const mutations = {    // Register User
         state.error = null
         state.status = 'loading'
     },
-    auth_success(state, token, user, role) {
+    auth_success(state, token, user) {
         state.token = token
         state.user = user
-        state.role = role
         state.status = 'success'
         state.error = null
+
     },
     auth_error(state, err) {
         state.error = err.response.data.msg
@@ -124,8 +125,9 @@ const mutations = {    // Register User
         state.status = 'loading'
     },
     user_profile(state, user) {
+        state.role = user['role']
         state.user = user
-    }
+    },
 };
 
 export default {

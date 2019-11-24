@@ -14,7 +14,12 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: 'Dashboard',
-  computed: mapGetters(["user"]),
+      data() {
+      return {
+        role: "",
+      };
+    },
+  computed: mapGetters(["user","role"]),
   methods: {
     ...mapActions(["getProfile"])
   },

@@ -123,6 +123,7 @@ const router = new Router({
 
 
 router.beforeEach((to, from, next) => {
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isLoggedIn) {
       // Redirect to the Login Page
@@ -130,25 +131,30 @@ router.beforeEach((to, from, next) => {
     } 
     else {
       let user = store.getters.user
-      if(to.matched.some(record => record.meta.requiresStudent))
-      {
-        //let user = store.getters.user 
-        //const role = user['role']
 
-        window.console.log('student',user['role'])
+      if(to.matched.some(record => record.meta.requiresStudent ||to.matched.some(record => record.meta.requiresStudent) ))
+      {
         if(user['role'] != 'Student')
         {
+          window.console.log('suppy',user['role'])
           next('Dashboard');
         }
         else {
+          window.console.log(user)
           next();
         }
       }
       else if (to.matched.some(record => record.meta.requiresInstructor))
       {
-        window.console.log('teacher',user['role'])
-        if(store.getters.user['role'] != 'Instructor')
+       
+        if (user)
+          window.console.log('why',user)
+        else {
+          window.console.log('why')
+        }
+        if(user['role'] != 'Instructor')
         {
+          window.console.log('suppy2',user)
           next('Dashboard');
         }
         else {
