@@ -75,6 +75,22 @@ const actions = {
         commit('user_profile', res.data.user)
         return res;
     },
+    //update the user profile 
+    async updateProfile ({
+        commit
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/users/profileupdate', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } catch (err) {
+            commit('update_error', err)
+        }
+
+    },
     // Logout the user
     async logout({
         commit
@@ -123,6 +139,13 @@ const mutations = {    // Register User
     },
     profile_request(state) {
         state.status = 'loading'
+    },
+    update_success(state){
+        state.error = null
+        state.status = 'success'
+    },
+    update_error(state, err) {
+        state.error = err.response.data.msg
     },
     user_profile(state, user) {
         state.user = user

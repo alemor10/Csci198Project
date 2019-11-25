@@ -17,7 +17,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="title">
-          Welcome {{ user.role}}
+          Welcome {{ role }}
         </v-list-item-title>
           <v-list-item-subtitle>
            :)
@@ -26,7 +26,23 @@
     </v-list-item>
     <v-divider></v-divider>
     <v-list
-      v-if="!role"
+      v-if="role=='Instructor'"
+      dense
+      nav
+    >
+      <v-list-item
+        v-for="item in itemsforInstructors"
+        :key="item.title"
+        :to="item.link"
+      >
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+    <v-list
+      v-if="role=='Student'"
       dense
       nav
     >
@@ -54,21 +70,23 @@ export default {
     return {
       drawer:null,
       itemsforStudents: [
+        { title: 'Dashboard' ,link: '/Dashboard'},
         { title: 'Forms', link: '/Forms' },
+        { title: 'Profile' ,link: '/Profile'},
         { title: 'Available Instructors',  },
-        { title: 'Account Information'},   
-        { title: 'Contact Faculty'},
+
       ],
       itemsforInstructors: [
         { title:'Forms from Students', link:'/studentforms'},
-        { title:'My Profile' },
+        { title:'My Profile' , link: '/Profile'},
 
 
       ]
     }
   },
   computed: {
-    ...mapGetters(["isLoggedIn","user"]),
+    ...mapGetters(["isLoggedIn","user","role"]),
+
 
   },
   methods: {

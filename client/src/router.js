@@ -36,6 +36,16 @@ const router = new Router({
          requiresAuth: true
       }
     },
+
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('./views/Profile.vue'),
+      meta: {
+         requiresAuth: true
+      }
+    },
+
     {
       path: '/forms',
       name: 'forms',

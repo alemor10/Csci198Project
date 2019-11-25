@@ -13,7 +13,6 @@ const saltRounds = 10;
  * @access Public
  */
 router.post('/register', (req, res) => {
-  console.log(req.body)
   let {
       username,
       password,
@@ -60,7 +59,6 @@ router.post('/register', (req, res) => {
       // Store hash in your password DB.
       if (err) throw err;
       newUser.password = hash;
-      console.log(newUser.username, newUser.password)
       bcrypt.compare(req.body.password, newUser.password, function(err, res) {
         // res === true
         console.log(res)
@@ -72,7 +70,8 @@ router.post('/register', (req, res) => {
           });
       });
     });
-}catch(err) {
+}
+catch(err) {
     throw err
 }
   
@@ -127,19 +126,54 @@ router.post('/login', (req, res) => {
         })
   });   
 
+
   /**
- * @route POST api/users/profile
+ * @route GET users/profile
  * @desc Return the User's Data
  * @access Private
  */
-    router.get('/profile', passport.authenticate('jwt', {
-      session: false
-    }), (req, res) => {
+router.get('/profile', passport.authenticate('jwt', {
+    session: false
+ }), (req, res) => {
         return res.json({
             user: req.user
         });
     });
 });
+
+/**
+ * @route POST users/profile
+ * @desc Update  the User's Data
+ * @access Public
+ */
+router.post('/updateprofile', (req, res) => {
+
+    var objForUpdate = {};
+    if(req.body.firstname) objForUpdate.firstname = req.body.firstname;
+    if(req.body.lastname)  objForUpdate.lastname = req.body.lastname;
+    if(req.body.studentID) objForUpdate.studentID = req.body.studentID;
+    if(req.body.bio) objForUpdate.bio = req.body.bio; 
+    try {
+        console.log(objForUpdate)
+        User.findOneAndUpdate({
+            'username': req.body.username
+        },objForUpdate).then(user => {
+            user.save().then(user => {
+                console.log(user)
+                return res.status(201).json({
+                    success: true,
+                    msg: "User Information is now updated."
+                });
+            })
+        })
+    }
+    catch(err) {
+        throw err
+    }
+      
+  });   
+
+
 
 
 module.exports = router;
