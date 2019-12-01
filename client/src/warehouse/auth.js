@@ -13,13 +13,7 @@ const state = {
 };
 
 const getters = {
-    // isLoggedIn: function (state) {
-    //     if (state.token != '') {
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // }
+
     isLoggedIn: state => !!state.token,
     authState: state => state.status,
     user: state => state.user,
@@ -81,7 +75,7 @@ const actions = {
     },userData) {
         try {
             commit('profile_request');
-            let res = await axios.post('http://localhost:5000/users/profileupdate', userData);
+            let res = await axios.post('http://localhost:5000/users/updateprofile', userData);
             if (res.data.success) {
                 commit('update_success');
             }
@@ -140,7 +134,8 @@ const mutations = {    // Register User
     profile_request(state) {
         state.status = 'loading'
     },
-    update_success(state){
+    update_success(state,user){
+        state.user = user
         state.error = null
         state.status = 'success'
     },
