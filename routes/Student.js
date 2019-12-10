@@ -30,7 +30,7 @@ router.post('/csci198', (req,res) => {
         User.findOneAndUpdate({
             'username': req.body.username
         },objForUpdate).then(user => {
-            user.StudentData.csci198.save().then(user => {
+            user.save().then(user => {
                 console.log(user)
                 return res.status(201).json({
                     success: true,
