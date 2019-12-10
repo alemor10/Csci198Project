@@ -4,8 +4,10 @@ const Schema = require('mongoose').Schema;
 
 
 const InstructorData = new Schema({
-  bio: {
-    type:String,
+  available: {
+    type:Boolean,
+    default:"false",
+    required:true
   },
   studentForms : { type : Array , "default" : [] }
  

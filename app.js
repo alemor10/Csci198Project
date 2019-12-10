@@ -51,6 +51,9 @@ app.post('/', (req, res) => {
 // Bring in the Users route
 const users = require('./routes/User');
 app.use('/users', users);
+// Bring in the Student routes
+const students = require('./routes/Student');
+app.use('/students', students);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
