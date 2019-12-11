@@ -54,6 +54,10 @@ app.use('/users', users);
 // Bring in the Student routes
 const students = require('./routes/Student');
 app.use('/students', students);
+// Bring in the Instructor routes
+const instructors = require('./routes/Instructor');
+app.use('/instructors', instructors);
+
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
