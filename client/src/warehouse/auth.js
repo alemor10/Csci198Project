@@ -44,6 +44,16 @@ const actions = {
             commit('auth_error', err);
         }
     },
+    // Logout the user
+    async logout({
+    commit
+    }) {
+        await localStorage.removeItem('token');
+        commit('logout');
+        delete axios.defaults.headers.common['Authorization'];
+        router.push('/login');
+        return
+    },
 
     async register({
         commit
@@ -83,22 +93,93 @@ const actions = {
         } catch (err) {
             commit('update_error', err)
         }
-
     },
-    // Logout the user
-    async logout({
+    //send 198 form
+    async submit198Form ({
         commit
-    }) {
-        await localStorage.removeItem('token');
-        commit('logout');
-        delete axios.defaults.headers.common['Authorization'];
-        router.push('/login');
-        return
-    }
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/student/csci198', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } 
+        catch (err) {
+            commit('update_error', err)
+        }
+    },
+
+    //send 298 form
+    async submit298Form ({
+        commit
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/student/csci298', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } 
+        catch (err) {
+            commit('update_error', err)
+        }
+    },
+    //send 190 form
+    async submit190Form ({
+        commit
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/student/csci190', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } 
+        catch (err) {
+            commit('update_error', err)
+        }
+    },
+    //send 290 form
+    async submit290Form ({
+        commit
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/student/csci290', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } 
+        catch (err) {
+            commit('update_error', err)
+        }
+    },
+    //send form to Instructor
+    async submitToInstructor ({
+        commit
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/instructors/sendform', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } 
+        catch (err) {
+            commit('update_error', err)
+        }
+    },
+
 
 };
 
-const mutations = {    // Register User
+const mutations = {   
     auth_request(state) {
         state.error = null
         state.status = 'loading'
@@ -108,7 +189,6 @@ const mutations = {    // Register User
         state.user = user
         state.status = 'success'
         state.error = null
-
     },
     auth_error(state, err) {
         state.error = err.response.data.msg
