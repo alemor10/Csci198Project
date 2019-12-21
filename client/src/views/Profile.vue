@@ -148,7 +148,6 @@ export default {
             bio: this.bio
 
           };
-           window.console.log(userInfo)
           this.updateProfile(userInfo)
             .then(res => {
 
