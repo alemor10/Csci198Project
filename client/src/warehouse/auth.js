@@ -100,7 +100,7 @@ const actions = {
     },userData) {
         try {
             commit('profile_request');
-            let res = await axios.post('http://localhost:5000/student/csci198', userData);
+            let res = await axios.post('http://localhost:5000/students/csci198', userData);
             if (res.data.success) {
                 commit('update_success');
             }

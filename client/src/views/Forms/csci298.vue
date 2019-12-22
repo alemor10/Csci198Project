@@ -17,6 +17,7 @@
             :counter="15"
             label="First name"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -30,6 +31,7 @@
             :counter="15"
             label="Last name"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -42,6 +44,7 @@
           :rules="numberRules"
           label="Student ID"
           required
+          readonly
         >
         </v-text-field>
         </v-col>
@@ -58,6 +61,7 @@
           :counter="15"
           label="Student Email"
           required
+          readonly
         >
         </v-text-field>
         </v-col>
@@ -124,7 +128,8 @@
 </template>
 
 <script>
- import { validationMixin } from 'vuelidate'
+import { mapActions } from "vuex";
+import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from "vuelidate/lib/validators";
 
 export default {
@@ -160,9 +165,18 @@ export default {
       }
     },
     methods: {
+      ...mapActions(["submit290Form"]), 
       submit () {
-        window.console.log('hei')
-        this.$v.$touch()
+        this.submit298Form(this.form)
+          .then(res => {
+            if (res.data.success) {
+              window.console.log(this.user)
+              this.$router.push("/Dashboard");
+            }
+        })
+        .catch(err => {
+          this.errormsg = err
+        });
       }
     }
 }

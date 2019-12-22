@@ -173,6 +173,7 @@
 
 
 <script>
+import { mapActions } from "vuex";
 import { required, email, minLength } from "vuelidate/lib/validators";
 
 export default {
@@ -203,7 +204,22 @@ export default {
         subject: {required, min: minLength(10)},
         description:{required}
       }
-    }
+    },
+    methods: {
+      ...mapActions(["submit190Form"]), 
+      submit() {
+        this.submit290Form(this.form)
+          .then(res => {
+            if (res.data.success) {
+              window.console.log(this.user)
+              this.$router.push("/Dashboard");
+            }
+        })
+        .catch(err => {
+          this.errormsg = err
+        });
+      }
+    },
   
 }
 </script>

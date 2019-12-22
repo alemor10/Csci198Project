@@ -144,12 +144,13 @@
 
 <script>
 
-
+import { mapActions } from "vuex";
 import { required, email, minLength,maxLength } from "vuelidate/lib/validators";
 
 export default {
   data() {
     return {
+      user: this.$store.getters.user,
       valid:false,
       semester:['Fall','Spring'],
       years:['2019','2020','2021', '2022',],
@@ -193,11 +194,21 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["submit198Form"]), 
     submit() {
-      window.console.log('hellop');
-      window.console.log(this.form);
-
+      this.submit198Form(this.form)
+          .then(res => {
+          if (res.data.success) {
+          window.console.log(this.user)
+          
+          this.$router.push("/Dashboard");
+        }
+      })
+      .catch(err => {
+        this.errormsg = err
+      });
     }
   },
+
 }
 </script> 

@@ -18,6 +18,7 @@
             :counter="15"
             label="First name"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -31,6 +32,7 @@
             :counter="15"
             label="Last name"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -43,6 +45,7 @@
           :rules="numberRules"
           label="Student ID"
           required
+          readonly
         >
         </v-text-field>
         </v-col>
@@ -56,9 +59,10 @@
         <v-text-field
           v-model="form.studentEmail"
           :rules="nameRules"
-          :counter="15"
+          :counter="40"
           label="Student Email"
           required
+          readonly
         >
         </v-text-field>
         </v-col>
@@ -176,6 +180,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { required, email, minLength } from "vuelidate/lib/validators";
 
 export default {
@@ -206,7 +211,22 @@ export default {
         subject: {required, min: minLength(10)},
         description:{required}
       }
-    }
+    },
+    methods: {
+      ...mapActions(["submit290Form"]), 
+      submit() {
+        this.submit290Form(this.form)
+          .then(res => {
+            if (res.data.success) {
+              window.console.log(this.user)
+              this.$router.push("/Dashboard");
+            }
+        })
+        .catch(err => {
+          this.errormsg = err
+        });
+      }
+    },
   
 }
 </script>
