@@ -16,11 +16,11 @@
           md="4"
         >
           <v-text-field
-            v-model="this.user.firstname"
+            v-model="form.firstname"
             :counter="12"
-            value="This is clearable text."
             label="First name"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -34,6 +34,7 @@
             label="Last name"
             :rules="[required,minLength,maxLength]"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -46,6 +47,7 @@
             label="Student ID"
             :rules="[required]"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -58,10 +60,10 @@
         >
           <v-text-field
             v-model="form.studentEmail"
-            :counter="15"
             :rules="[required]"
             label="Student Email"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -121,8 +123,8 @@
         <v-divider></v-divider>
         <h3> Select your start date and completion date. </h3>
         <v-row justify="space-around">
-        <v-date-picker v-model="form.picker" :rules="[required]" color="green lighten-1"></v-date-picker>
-        <v-date-picker v-model="form.picker2" :rules="[required]" color="green lighten-1" header-color="primary"></v-date-picker>
+        <v-date-picker v-model="form.startdate" :rules="[required]" color="green lighten-1"></v-date-picker>
+        <v-date-picker v-model="form.enddate" :rules="[required]" color="green lighten-1" header-color="primary"></v-date-picker>
         </v-row>
         <h3> 2. Briefly describe the nature of the your project </h3>
         <v-text-field
@@ -134,7 +136,7 @@
         >
         </v-text-field>
       
-        <v-btn @click="submit" :disabled="valid">submit</v-btn>
+        <v-btn @click="submit" :disabled="!valid">submit</v-btn>
     </v-form>
   </v-container> 
 
@@ -148,7 +150,6 @@ import { required, email, minLength,maxLength } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
-      user:this.$store.getters.user,
       valid:false,
       semester:['Fall','Spring'],
       years:['2019','2020','2021', '2022',],
@@ -161,10 +162,11 @@ export default {
       descminLength: v => v.length > 20 || 'This field must be at least twenty characters long',
       descmaxLength: v => v.length <= 500 || 'This field can only be five hundred characters long',   
       form: {
-        firstname:'',
-        lastname:'',
-        studentID:'',
-        studentEmail:'',
+        username:this.$store.getters.user.username,
+        firstname: this.$store.getters.user.firstname,
+        lastname:this.$store.getters.user.lastname,
+        studentID:this.$store.getters.user.studentID,
+        studentEmail: this.$store.getters.user.email,
         projectTitle:'',
         description:'', 
         semester:'',
@@ -193,7 +195,7 @@ export default {
   methods: {
     submit() {
       window.console.log('hellop');
-      window.console.log(this.user);
+      window.console.log(this.form);
 
     }
   },

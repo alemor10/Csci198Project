@@ -132,10 +132,11 @@ export default {
   data() {
     return {
       form: {
-        firstname:'',
-        lastname:'',
-        studentID:'',
-        studentEmail:'',
+        username:this.$store.getters.user.username,
+        firstname:this.$store.getters.user.firstname,
+        lastname:this.$store.getters.user.lastname,
+        studentID:this.$store.getters.user.studentID,
+        studentEmail:this.$store.getters.user.email,
         projectTitle:'',
         description:'', 
         semester:['Fall','Spring'],
