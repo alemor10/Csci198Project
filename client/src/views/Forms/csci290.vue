@@ -121,9 +121,8 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="items"
-          :error-messages="selectErrors"
+          v-model="form.SupervisingInstructor"
+          :items="this.$store.getters.instructors"
           label="Supervising Instructor"
           required
         >
@@ -183,6 +182,7 @@ export default {
         lastname:this.$store.getters.user.lastname,
         studentID:this.$store.getters.user.studentID,
         studentEmail:this.$store.getters.user.email,
+        SupervisingInstructor:'',
         subject:'',
         description:'', 
         semester: '',

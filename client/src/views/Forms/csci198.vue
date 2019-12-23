@@ -118,7 +118,19 @@
             required
           >
           </v-text-field>
-        </v-col>               
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+        <v-select
+          v-model="form.SupervisingInstructor"
+          :items="this.$store.getters.instructors"
+          label="Supervising Instructor"
+          required
+        >
+        </v-select>
+        </v-col>          
         </v-row>
         <v-divider></v-divider>
         <h3> Select your start date and completion date. </h3>
@@ -167,6 +179,7 @@ export default {
         lastname:this.$store.getters.user.lastname,
         studentID:this.$store.getters.user.studentID,
         studentEmail: this.$store.getters.user.email,
+        SupervisingInstructor:'',
         projectTitle:'',
         description:'', 
         semester:'',
