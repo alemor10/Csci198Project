@@ -21,10 +21,11 @@ export default {
     },
   computed: mapGetters(["user","role"]),
   methods: {
-    ...mapActions(["getProfile"])
+    ...mapActions(["getProfile","getInstructors"])
   },
   created() {
     this.getProfile();
+    this.getInstructors();
   }
 
 

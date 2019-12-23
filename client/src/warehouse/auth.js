@@ -7,6 +7,7 @@ import router from '../router';
 const state = {
     token: localStorage.getItem('token') || '',
     user: {},
+    instructors: [],
     role: '',
     status: '',
     error: null
@@ -18,7 +19,8 @@ const getters = {
     authState: state => state.status,
     user: state => state.user,
     role: state => state.role,
-    error: state => state.error
+    error: state => state.error,
+    instructors: state => state.instructors
 };
 
 const actions = {
@@ -94,6 +96,17 @@ const actions = {
             commit('update_error', err)
         }
     },
+    // Get the list of instructors
+    async getInstructors({
+        commit
+    }) {
+        commit('profile_request');
+        let res = await axios.get('http://localhost:5000/users/instructors')
+        commit('instructors', res.data)
+        return res;
+    },
+
+
     //send 198 form
     async submit198Form ({
         commit
@@ -226,6 +239,9 @@ const mutations = {
         state.user = user
         state.role = user['role']
     },
+    instructors(state,user) {
+        state.instructors = user
+    }
 };
 
 export default {

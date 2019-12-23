@@ -193,11 +193,7 @@ router.get('/instructors',(req, res) => {
         for (var i = 0, l = data.length; i < l; i++) {
             instructors.push(data[i].username);
         }        
-        
-        console.log(instructors);
         return res.json(instructors);
-
-    
     })
 });
 
