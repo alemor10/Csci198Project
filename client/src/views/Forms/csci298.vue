@@ -5,7 +5,7 @@
       <h3 class="subheading grey--text">CSCI 298 Masters Project</h3>
       <h3 class="subheading black--text"> Please complete and sign this form for authorization for a restricted supervision course.
       Upon approval of the Department chair, a section number and permission number will be issued to you. You must then register for the course through your "My Fresno State" portal.</h3>
-  <form @submit.prevent="handleSubmit">
+  <v-form class="px-3" v-model="valid">
         <v-row>
         <v-col
           cols="12"
@@ -13,7 +13,6 @@
         >
           <v-text-field
             v-model="form.firstname"
-            :rules="nameRules"
             :counter="15"
             label="First name"
             required
@@ -27,7 +26,6 @@
         >
           <v-text-field
             v-model="form.lastname"
-            :rules="nameRules"
             :counter="15"
             label="Last name"
             required
@@ -41,7 +39,7 @@
         >
         <v-text-field
           v-model="form.studentID"
-          :rules="numberRules"
+          :rules="[required]"
           label="Student ID"
           required
           readonly
@@ -57,7 +55,6 @@
         >
         <v-text-field
           v-model="form.studentEmail"
-          :rules="nameRules"
           :counter="15"
           label="Student Email"
           required
@@ -70,13 +67,11 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="form.semester"
-          :error-messages="selectErrors"
+          v-model="form.semester"
+          :items="semester"
+          :rules="[required]"
           label="Semester"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         </v-col>
@@ -85,13 +80,23 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="form.units"
-          :error-messages="selectErrors"
+          v-model="form.years"
+          :items="years"
+          :rules="[required]"
+          label="Year"
+          required
+        >
+        </v-select>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+        <v-select
+          v-model="form.units"
+          :items="units"
           label="Units"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         </v-col>
@@ -109,8 +114,8 @@
         <v-divider></v-divider>
         <h3> Select your start date and completion date. </h3>
         <v-row justify="space-around">
-        <v-date-picker v-model="form.picker" color="green lighten-1"></v-date-picker>
-        <v-date-picker v-model="form.picker2" color="green lighten-1" header-color="primary"></v-date-picker>
+        <v-date-picker v-model="form.startdate" color="green lighten-1"></v-date-picker>
+        <v-date-picker v-model="form.enddate" color="green lighten-1" header-color="primary"></v-date-picker>
         </v-row>
         <h3> 2. Briefly describe the nature of the your project </h3>
         <v-text-field
@@ -121,8 +126,8 @@
         >
         </v-text-field>
       
-        <v-btn>submit</v-btn>
-    </form>
+      <v-btn @click="submit" :disabled="!valid">submit</v-btn>
+    </v-form>
   </v-container>
 </template>
 
@@ -135,6 +140,17 @@ export default {
   mixins: [validationMixin],
   data() {
     return {
+      valid:false,
+      semester:['Fall','Spring'],
+      years:['2019','2020','2021', '2022',],
+      units:['1','2','3'],
+      picker: new Date().toISOString().substr(0, 10),
+      picker2: new Date().toISOString().substr(0, 10),
+      required: v => v.length > 0|| 'This field cannot be empty.',
+      minLength: v => v.length >= 2 || 'This field must be at least two characters long',
+      maxLength: v => v.length <= 12 || 'This field can only be twelve characters long',
+      descminLength: v => v.length > 20 || 'This field must be at least twenty characters long',
+      descmaxLength: v => v.length <= 500 || 'This field can only be five hundred characters long',        
       form: {
         username:this.$store.getters.user.username,
         firstname:this.$store.getters.user.firstname,
@@ -143,11 +159,11 @@ export default {
         studentEmail:this.$store.getters.user.email,
         projectTitle:'',
         description:'', 
-        semester:['Fall','Spring'],
-        years:['2019','2020','2021', '2022',],
-        units:['1','2','3'],
-        picker: new Date().toISOString().substr(0, 10),
-        picker2: new Date().toISOString().substr(0, 10),
+        semester:'',
+        years:'',
+        units:'',
+        startdate: '',
+        enddate: '',
       }
      } 
     },
@@ -164,7 +180,7 @@ export default {
       }
     },
     methods: {
-      ...mapActions(["submit290Form"]), 
+      ...mapActions(["submit298Form"]), 
       submit () {
         this.submit298Form(this.form)
           .then(res => {

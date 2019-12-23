@@ -14,7 +14,6 @@
         >
           <v-text-field
             v-model="form.firstname"
-            :rules="nameRules"
             :counter="15"
             label="First name"
             required
@@ -28,7 +27,6 @@
         >
           <v-text-field
             v-model="form.lastname"
-            :rules="nameRules"
             :counter="15"
             label="Last name"
             required
@@ -58,7 +56,6 @@
         >
         <v-text-field
           v-model="form.studentEmail"
-          :rules="nameRules"
           :counter="40"
           label="Student Email"
           required
@@ -71,13 +68,11 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="form.semester"
-          :error-messages="selectErrors"
+          v-model="form.year"
+          :items="semester"
+          :rules="[required]"
           label="Semester"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         </v-col>
@@ -86,13 +81,11 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="form.years"
-          :error-messages="selectErrors"
+          v-model="form.year"
+          :items="years"
+          :rules="[required]"
           label="Year"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         </v-col>
@@ -101,7 +94,7 @@
           md="4"
         >
         <v-text-field
-          v-model="subject"
+          v-model="form.subject"
           :counter="15"
           label="Course Subject"
           required
@@ -113,13 +106,12 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="form.units"
+          v-model="form.units"
+          :items="units"
           :error-messages="selectErrors"
           label="Number of Units"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
+
         >
         </v-select>
 
@@ -132,10 +124,8 @@
           v-model="select"
           :items="items"
           :error-messages="selectErrors"
-          label="Item"
+          label="Supervising Instructor"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         </v-col>                    
@@ -143,13 +133,11 @@
       <v-divider></v-divider>
       <h4> 1. Check below which sense the proposed independent study project conforms to Item 1 of the regulations for independent study. </h4>
         <v-select
-          v-model="select"
-          :items="form.option1"
-          :error-messages="selectErrors"
+          v-model="form.option"
+          :items="option1"
+          :rules="[required]"
           label="Select one of the options"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         <h4> 2. Describe briefly the nature of the independent study project to be undertaken and, if possible at this time, the title of the paper. </h4>
@@ -163,13 +151,11 @@
         </v-text-field>
         <h4> 3.Are you below a 3.0 GPA? </h4>
         <v-select
-          v-model="select"
-          :items="form.GPA"
-          :error-messages="selectErrors"
+          v-model="form.GPA"
+          :rules="[required]"
+          :items="GPA"
           label="Yes/No"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
       </v-form>
@@ -186,6 +172,11 @@ export default {
   data() {
     return {
       valid:false,
+      semester:['Fall','Spring'],       
+      years:['2019','2020','2021', '2022',],        
+      units:['1','2','3'],
+      option1:['Desire to pursue information not covered in a regular course', 'Desire to study a special area in greater depth given in a regular course'],
+      GPA:['Yes', 'No'],
       form: {
         username:this.$store.getters.user.username,
         firstname:this.$store.getters.user.firstname,
@@ -194,11 +185,11 @@ export default {
         studentEmail:this.$store.getters.user.email,
         subject:'',
         description:'', 
-        semester:['Fall','Spring'],
-        years:['2019','2020','2021', '2022',],
-        units:['1','2','3'],
-        option1:['Desire to pursue information not covered in a regular course', 'Desire to study a special area in greater depth given in a regular course'],
-        GPA:['Yes', 'No'],
+        semester: '',
+        year: '',
+        units: '',
+        option:'',
+        GPA:'',
       }
      } 
     },

@@ -18,6 +18,7 @@
             :counter="15"
             label="First name"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -30,6 +31,7 @@
             :counter="15"
             label="Last name"
             required
+            readonly
           >
           </v-text-field>
         </v-col>
@@ -42,6 +44,7 @@
           :rules="numberRules"
           label="Student ID"
           required
+          readonly
         >
         </v-text-field>
         </v-col>
@@ -57,6 +60,7 @@
           :counter="15"
           label="Student Email"
           required
+          readonly
         >
         </v-text-field>
         </v-col>
