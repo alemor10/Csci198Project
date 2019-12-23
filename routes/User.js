@@ -159,7 +159,6 @@ router.post('/updateprofile', (req, res) => {
             'username': req.body.username
         },objForUpdate).then(user => {
             user.save().then(user => {
-                console.log(user)
                 return res.status(201).json({
                     success: true,
                     msg: "User Information is now updated."
@@ -172,6 +171,37 @@ router.post('/updateprofile', (req, res) => {
     }
       
   });   
+
+ /**
+ * @route GET users/getInstructors
+ * @desc Return list of Instructors
+ * @access Private
+ */
+
+router.get('/instructors',(req, res) => {
+    var instructors = []
+    User.find({role: "Instructor"}, function(err, data){
+        if(err){
+            console.log(err);
+            return
+        }
+    
+        if(data.length == 0) {
+            console.log("No record found")
+            return
+        }
+        for (var i = 0, l = data.length; i < l; i++) {
+            instructors.push(data[i].username);
+        }        
+        
+        console.log(instructors);
+        return res.json(instructors);
+
+    
+    })
+});
+
+ 
 
 
 
