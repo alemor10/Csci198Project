@@ -150,7 +150,6 @@ import { required, email, minLength,maxLength } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
-      user: this.$store.getters.user,
       valid:false,
       semester:['Fall','Spring'],
       years:['2019','2020','2021', '2022',],

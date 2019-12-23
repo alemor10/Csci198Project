@@ -7,7 +7,7 @@
       <h3 class="subheading grey--text">CSCI 190 Undergraduate Independent Study</h3>
       <h3 class="subheading black--text"> Please complete and sign this form for authorization for an Undergraduate Independent Study.
       Upon approval from your Supervising Instructor and the Department chair, a section number and permission number will be issued to you. You must then register for the course through your "My Fresno State" portal.</h3>
-    <v-form @submit.prevent="submit">
+    <v-form class="px-3" v-model="valid">
         <v-row>
         <v-col
           cols="12"
@@ -65,13 +65,11 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="form.semester"
-          :error-messages="selectErrors"
+          v-model="form.semester"
+          :items="semester"
           label="Semester"
+          :rules="[required]"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         </v-col>
@@ -80,13 +78,11 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="form.years"
-          :error-messages="selectErrors"
+          v-model="form.year"
+          :items="years"
+          :rules="[required]"
           label="Year"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         </v-col>
@@ -95,7 +91,7 @@
           md="4"
         >
         <v-text-field
-          v-model="subject"
+          v-model="form.subject"
           :counter="15"
           label="Course Subject"
           required
@@ -107,13 +103,11 @@
           md="4"
         >
         <v-select
-          v-model="select"
-          :items="form.units"
-          :error-messages="selectErrors"
+          v-model="form.units"
+          :items="units"
+          :rules="[required]"
           label="Number of Units"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
 
@@ -128,8 +122,6 @@
           :error-messages="selectErrors"
           label="Supervising Instructor"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         </v-col>                    
@@ -137,13 +129,11 @@
       <v-divider></v-divider>
       <h4> 1. Check below which sense the proposed independent study project conforms to Item 1 of the regulations for independent study. </h4>
         <v-select
-          v-model="select"
-          :items="form.option1"
-          :error-messages="selectErrors"
+          v-model="form.option"
+          :items="option1"
+          :rules="[required]"
           label="Select one of the options"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
         <h4> 2. Describe briefly the nature of the independent study project to be undertaken and, if possible at this time, the title of the paper. </h4>
@@ -156,18 +146,15 @@
         </v-text-field>
         <h4> 3.Are you below a 3.0 GPA? </h4>
         <v-select
-          v-model="select"
-          :items="form.GPA"
-          :error-messages="selectErrors"
+          v-model="form.GPA"
+          :items="GPA"
+          :rules="[required]"
           label="Yes/No"
           required
-          @change="$v.select.$touch()"
-          @blur="$v.select.$touch()"
         >
         </v-select>
-        <v-btn> hewoo </v-btn>
-        <h1> HEWOOO</h1>
     </v-form>
+    <v-btn @click="submit" :disabled="!valid">submit</v-btn>
   </v-container>
 </template>
 
@@ -179,6 +166,12 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
+      valid:false,
+      semester:['Fall','Spring'],       
+      years:['2019','2020','2021', '2022',],        
+      units:['1','2','3'],
+      option1:['Desire to pursue information not covered in a regular course', 'Desire to study a special area in greater depth given in a regular course'],
+      GPA:['Yes', 'No'],
       form: {
         username:this.$store.getters.user.username,
         firstname:this.$store.getters.user.firstname,
@@ -187,11 +180,11 @@ export default {
         studentEmail:this.$store.getters.user.email,
         subject:'',
         description:'', 
-        semester:['Fall','Spring'],
-        years:['2019','2020','2021', '2022',],
-        units:['1','2','3'],
-        option1:['Desire to pursue information not covered in a regular course', 'Desire to study a special area in greater depth given in a regular course'],
-        GPA:['Yes', 'No'],
+        semester: '',
+        year: '',
+        units: '',
+        option:'',
+        GPA:'',
       }
      } 
     },
@@ -208,7 +201,7 @@ export default {
     methods: {
       ...mapActions(["submit190Form"]), 
       submit() {
-        this.submit290Form(this.form)
+        this.submit190Form(this.form)
           .then(res => {
             if (res.data.success) {
               window.console.log(this.user)

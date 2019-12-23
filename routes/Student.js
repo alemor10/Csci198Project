@@ -19,12 +19,12 @@ router.post('/csci198', (req,res) => {
     if(req.body.studentID) objForUpdate.studentID = req.body.studentID;
     if(req.body.studentEmail) objForUpdate.studentEmail = req.body.studentEmail; 
     if(req.body.semester) objForUpdate.Semester = req.body.semester; 
-    if(req.body.year) objForUpdate.Year = req.body.year;
+    if(req.body.year) objForUpdate.Year = req.body.years;
     if(req.body.units) objForUpdate.Units = req.body.units; 
     if(req.body.projectTitle) objForUpdate.ProjectTitle = req.body.projectTitle;
-    if(req.body.startDate) objForUpdate.StartDate = req.body.startDate;
-    if(req.body.endDate) objForUpdate.EndDate = req.body.endDate;
-    if(req.body.projectDescription) objForUpdate.Description = req.body.projectDescription;
+    if(req.body.startdate) objForUpdate.StartDate = req.body.startdate;
+    if(req.body.enddate) objForUpdate.EndDate = req.body.enddate;
+    if(req.body.description) objForUpdate.Description = req.body.description;
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
     try {
 
@@ -59,12 +59,12 @@ router.post('/csci298', (req,res) => {
     if(req.body.studentID) objForUpdate.studentID = req.body.studentID;
     if(req.body.studentEmail) objForUpdate.studentEmail = req.body.studentEmail; 
     if(req.body.semester) objForUpdate.Semester = req.body.semester; 
-    if(req.body.year) objForUpdate.Year = req.body.year;
+    if(req.body.year) objForUpdate.Year = req.body.years;
     if(req.body.units) objForUpdate.Units = req.body.units; 
     if(req.body.projectTitle) objForUpdate.ProjectTitle = req.body.projectTitle;
-    if(req.body.startDate) objForUpdate.StartDate = req.body.startDate;
-    if(req.body.endDate) objForUpdate.EndDate = req.body.endDate;
-    if(req.body.projectDescription) objForUpdate.Description = req.body.projectDescription;
+    if(req.body.startdate) objForUpdate.StartDate = req.body.startdate;
+    if(req.body.enddate) objForUpdate.EndDate = req.body.enddate;
+    if(req.body.description) objForUpdate.Description = req.body.description;
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
     try {
 
@@ -101,10 +101,10 @@ router.post('/csci190', (req,res) => {
     if(req.body.studentEmail) objForUpdate.studentEmail = req.body.studentEmail; 
     if(req.body.semester) objForUpdate.Semester = req.body.semester; 
     if(req.body.year) objForUpdate.Year = req.body.year;
-    if(req.body.course) objForUpdate.Course = req.body.course;
+    if(req.body.subject) objForUpdate.Subject = req.body.subject;
     if(req.body.units) objForUpdate.Units = req.body.units; 
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
-    if(req.body.reason) objForUpdate.Reason = req.body.reason;
+    if(req.body.option) objForUpdate.Reason = req.body.option;
     if(req.body.description) objForUpdate.Description = req.body.description;
     if(req.body.GPA) objForUpdate.GPA = req.body.GPA;
 
@@ -142,10 +142,10 @@ router.post('/csci290', (req,res) => {
     if(req.body.studentEmail) objForUpdate.studentEmail = req.body.studentEmail; 
     if(req.body.semester) objForUpdate.Semester = req.body.semester; 
     if(req.body.year) objForUpdate.Year = req.body.year;
-    if(req.body.course) objForUpdate.Course = req.body.course;S
+    if(req.body.subject) objForUpdate.Subject = req.body.subject;
     if(req.body.units) objForUpdate.Units = req.body.units; 
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
-    if(req.body.reason) objForUpdate.Reason = req.body.reason;
+    if(req.body.option) objForUpdate.Reason = req.body.option;
     if(req.body.description) objForUpdate.Description = req.body.description;
     if(req.body.GPA) objForUpdate.GPA = req.body.GPA;
     try {

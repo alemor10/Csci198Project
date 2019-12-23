@@ -6,7 +6,7 @@
       <h3 class="subheading grey--text">CSCI 290 Graduate Independent Study</h3>
       <h3 class="subheading black--text"> Please complete and sign this form for authorization for an Undergraduate Independent Study.
       Upon approval from your Supervising Instructor and the Department chair, a section number and permission number will be issued to you. You must then register for the course through your "My Fresno State" portal.</h3>
-    <v-form @submit.prevent="submit">
+    <v-form class="px-3" v-model="valid">
         <v-row>
         <v-col
           cols="12"
@@ -172,9 +172,8 @@
           @blur="$v.select.$touch()"
         >
         </v-select>
-        <v-btn>submit</v-btn>
-        <h1>hewwo</h1>
       </v-form>
+       <v-btn @click="submit" :disabled="!valid">submit</v-btn>
 </v-container>
 
 </template>
@@ -186,6 +185,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
+      valid:false,
       form: {
         username:this.$store.getters.user.username,
         firstname:this.$store.getters.user.firstname,

@@ -117,7 +117,7 @@ const actions = {
     },userData) {
         try {
             commit('profile_request');
-            let res = await axios.post('http://localhost:5000/student/csci298', userData);
+            let res = await axios.post('http://localhost:5000/students/csci298', userData);
             if (res.data.success) {
                 commit('update_success');
             }
@@ -133,7 +133,7 @@ const actions = {
     },userData) {
         try {
             commit('profile_request');
-            let res = await axios.post('http://localhost:5000/student/csci190', userData);
+            let res = await axios.post('http://localhost:5000/students/csci190', userData);
             if (res.data.success) {
                 commit('update_success');
             }
@@ -149,7 +149,7 @@ const actions = {
     },userData) {
         try {
             commit('profile_request');
-            let res = await axios.post('http://localhost:5000/student/csci290', userData);
+            let res = await axios.post('http://localhost:5000/students/csci290', userData);
             if (res.data.success) {
                 commit('update_success');
             }
