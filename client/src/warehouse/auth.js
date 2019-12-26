@@ -172,13 +172,59 @@ const actions = {
             commit('update_error', err)
         }
     },
-    //send form to Instructor
-    async submitToInstructor ({
+    //send 198 form to Instructor
+    async submit198ToInstructor ({
         commit
     },userData) {
         try {
             commit('profile_request');
-            let res = await axios.post('http://localhost:5000/instructors/sendform', userData);
+            let res = await axios.post('http://localhost:5000/instructors/send198form', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } 
+        catch (err) {
+            commit('update_error', err)
+        }
+    },
+    //send 198 form to Instructor
+    async submit298ToInstructor ({
+        commit
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/instructors/send298form', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } 
+        catch (err) {
+            commit('update_error', err)
+        }
+    },
+    async submit190ToInstructor ({
+        commit
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/instructors/send190form', userData);
+            if (res.data.success) {
+                commit('update_success');
+            }
+            return res;
+        } 
+        catch (err) {
+            commit('update_error', err)
+        }
+    },
+    async submit290ToInstructor ({
+        commit
+    },userData) {
+        try {
+            commit('profile_request');
+            let res = await axios.post('http://localhost:5000/instructors/send290form', userData);
             if (res.data.success) {
                 commit('update_success');
             }

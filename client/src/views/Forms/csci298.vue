@@ -164,6 +164,7 @@ export default {
       descminLength: v => v.length > 20 || 'This field must be at least twenty characters long',
       descmaxLength: v => v.length <= 500 || 'This field can only be five hundred characters long',        
       form: {
+        formTitle: "298",
         username:this.$store.getters.user.username,
         firstname:this.$store.getters.user.firstname,
         lastname:this.$store.getters.user.lastname,
@@ -193,7 +194,7 @@ export default {
       }
     },
     methods: {
-      ...mapActions(["submit298Form"]), 
+      ...mapActions(["submit298Form","submit298ToInstructor"]), 
       submit () {
         this.submit298Form(this.form)
           .then(res => {

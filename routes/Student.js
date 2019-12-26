@@ -14,6 +14,8 @@ const User = require('../models/users')
 
 router.post('/csci198', (req,res) => {
     var objForUpdate = {};
+    var str = '198'; 
+    objForUpdate.formID = str.concat(req.body.username);
     if(req.body.firstname) objForUpdate.firstName = req.body.firstname;
     if(req.body.lastname)  objForUpdate.lastName = req.body.lastname;
     if(req.body.studentID) objForUpdate.studentID = req.body.studentID;
@@ -27,7 +29,6 @@ router.post('/csci198', (req,res) => {
     if(req.body.description) objForUpdate.Description = req.body.description;
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
     try {
-
         User.findOneAndUpdate({
             'username': req.body.username
         },{csci198:objForUpdate}).then(user => {
@@ -54,6 +55,8 @@ router.post('/csci198', (req,res) => {
 
 router.post('/csci298', (req,res) => {
     var objForUpdate = {};
+    var str = '298'; 
+    objForUpdate.formID = str.concat(req.body.username);
     if(req.body.firstname) objForUpdate.firstName = req.body.firstname;
     if(req.body.lastname)  objForUpdate.lastName = req.body.lastname;
     if(req.body.studentID) objForUpdate.studentID = req.body.studentID;
@@ -95,14 +98,16 @@ router.post('/csci298', (req,res) => {
 
 router.post('/csci190', (req,res) => {
     var objForUpdate = {};
+    var str = '190'; 
+    objForUpdate.formID = str.concat(req.body.username);
     if(req.body.firstname) objForUpdate.firstName = req.body.firstname;
     if(req.body.lastname)  objForUpdate.lastName = req.body.lastname;
     if(req.body.studentID) objForUpdate.studentID = req.body.studentID;
     if(req.body.studentEmail) objForUpdate.studentEmail = req.body.studentEmail; 
     if(req.body.semester) objForUpdate.Semester = req.body.semester; 
     if(req.body.year) objForUpdate.Year = req.body.year;
-    if(req.body.subject) objForUpdate.Subject = req.body.subject;
     if(req.body.units) objForUpdate.Units = req.body.units; 
+    if(req.body.subject) objForUpdate.Subject = req.body.subject;
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
     if(req.body.option) objForUpdate.Reason = req.body.option;
     if(req.body.description) objForUpdate.Description = req.body.description;
@@ -114,7 +119,6 @@ router.post('/csci190', (req,res) => {
             'username': req.body.username
         },{csci190:objForUpdate}).then(user => {
             user.save().then(user => {
-                console.log(objForUpdate)
                 return res.status(201).json({
                     success: true,
                     msg: "User Information is now updated."
@@ -136,6 +140,8 @@ router.post('/csci190', (req,res) => {
 
 router.post('/csci290', (req,res) => {
     var objForUpdate = {};
+    var str = '190'; 
+    objForUpdate.formID = str.concat(req.body.username);
     if(req.body.firstname) objForUpdate.firstName = req.body.firstname;
     if(req.body.lastname)  objForUpdate.lastName = req.body.lastname;
     if(req.body.studentID) objForUpdate.studentID = req.body.studentID;

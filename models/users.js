@@ -139,15 +139,17 @@ const UserSchema  = new Schema({
 
   bio: {
     type:String,
-  },
+  },  
+  studentForms : { type : Array , "default" : [] },
   csci190: {
+    formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
     studentID: {type: String },
     studentEmail:{ type: String },
     Semester: { type: String },
     Year: { type: String },
-    Course: {type : String },
+    Subject: {type : String },
     Units: { type: String}, 
     SupervisingInstructor: { type: String },
     Reason: { type: String },
@@ -156,13 +158,14 @@ const UserSchema  = new Schema({
     DateCreated: { type: Date }
   },
   csci290: {
+    formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
     studentID: {type: String },
     studentEmail:{ type: String },
     Semester: { type: String },
     Year: { type: String },
-    Course: {type : String },
+    Subject: {type : String },
     Units: { type: String}, 
     SupervisingInstructor: { type: String },
     Reason: { type: String },
@@ -171,10 +174,12 @@ const UserSchema  = new Schema({
     DateCreated: { type: Date }
   },
   csci194: {
+    formID: {type: String},
     firstName: { type: String },
     lastName: { type: String }
   },
   csci198: {
+    formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
     studentID: {type: String },
@@ -190,6 +195,7 @@ const UserSchema  = new Schema({
     DateCreated: { type: Date }
   },
   csci298: {
+    formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
     studentID: {type: String},
@@ -205,6 +211,7 @@ const UserSchema  = new Schema({
     DateCreated: { type: Date }
   },
   csci298C: {
+    formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
     studentID: {type: String },
@@ -220,13 +227,10 @@ const UserSchema  = new Schema({
     DateCreated: { type: Date }
   },
   csci299: {
+    formID: {type: String},
     firstName: { type: String },
     lastName: { type: String }
   },
-  studentForms : { type : Array , "default" : [] }
-
-  
-
 
 
 });

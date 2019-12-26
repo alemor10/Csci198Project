@@ -177,6 +177,7 @@ export default {
       option1:['Desire to pursue information not covered in a regular course', 'Desire to study a special area in greater depth given in a regular course'],
       GPA:['Yes', 'No'],
       form: {
+        formTitle: "290",
         username:this.$store.getters.user.username,
         firstname:this.$store.getters.user.firstname,
         lastname:this.$store.getters.user.lastname,
@@ -204,7 +205,7 @@ export default {
       }
     },
     methods: {
-      ...mapActions(["submit290Form"]), 
+      ...mapActions(["submit290Form","submit290ToInstructor"]),  
       submit() {
         this.submit290Form(this.form)
           .then(res => {
