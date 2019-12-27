@@ -13,8 +13,9 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="this.$store.getters.user.studentForms"
       :search="search"
+      class="elevation-1"
     ></v-data-table>
   </v-card>
 </template>
@@ -25,14 +26,16 @@
         search: '',
         headers: [
           {
-            text: 'Student Name',
+            text: 'Form ID',
             align: 'left',
             sortable: false,
-            value: 'name',
+            value: 'formID',
           },
-          { text: 'Student ID', value: 'calories' },
-          { text: 'Date Received', value: 'date'}
-
+          { text: 'Student ID', value: 'studentID' },
+          { text: 'Supervising Instructor ', value: 'SupervisingInstructor'},
+          { text: 'Student Last Name', value: 'firstName'},
+          { text: 'Student First Name', value: 'lastName'},
+          { text: 'Student Email', value: 'studentEmail'}
         ],
 
       }
