@@ -201,7 +201,37 @@ router.post('/send290form', (req,res) => {
 
 })
 
+/**
+ * @route POST instructor/sendform
+ * @desc Update  the students's csci198 form
+ * @access private
+ */
 
+router.post('/approve198form', (req,res) => {
+    
+
+    try {
+        // find instructors document
+        User.findOne({
+        username: req.body.username
+        }).then(user => {
+            var array = user.studentForms
+            var index = array.findIndex(x => x.formID==req.body.formID)
+            if (index > -1) array[index].isApprovedByInstructor = 'true';
+            user.save().then(user => {
+                console.log(user)
+                return res.status(201).json({
+                    success: true,
+                    msg: "Form is now approved."
+                });
+            });
+        })
+    }
+    catch(err) {
+        throw err
+    }
+
+})
 
 
 module.exports = router;

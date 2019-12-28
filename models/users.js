@@ -155,6 +155,9 @@ const UserSchema  = new Schema({
     Reason: { type: String },
     Description: { type: String },
     GPA: { type: String },
+    isApprovedByInstructor: { type: String },
+    isApprovedByChair: { type: String },
+
     DateCreated: { type: Date }
   },
   csci290: {
@@ -171,7 +174,10 @@ const UserSchema  = new Schema({
     Reason: { type: String },
     Description: { type: String },
     GPA: { type: String },
-    DateCreated: { type: Date }
+    isApprovedByInstructor: { type: String },
+    isApprovedByChair: { type: String },
+    DateCreated: { type: Date },
+    
   },
   csci194: {
     formID: {type: String},
@@ -192,6 +198,8 @@ const UserSchema  = new Schema({
     EndDate: {type : String},
     SupervisingInstructor: { type: String },
     Description: { type: String },
+    isApprovedByInstructor: { type: String },
+    isApprovedByChair: { type: String },
     DateCreated: { type: Date }
   },
   csci298: {
@@ -208,6 +216,8 @@ const UserSchema  = new Schema({
     EndDate: {type : String},
     SupervisingInstructor: { type: String },
     Description: { type: String },
+    isApprovedByInstructor: { type: String },
+    isApprovedByChair: { type: String },
     DateCreated: { type: Date }
   },
   csci298C: {
@@ -224,6 +234,8 @@ const UserSchema  = new Schema({
     EndDate: {type : String},
     SupervisingInstructor: { type: String },
     Description: { type: String },
+    isApprovedByInstructor: { type: String },
+    isApprovedByChair: { type: String },
     DateCreated: { type: Date }
   },
   csci299: {
