@@ -32,16 +32,22 @@
                     <v-text-field readonly v-model="editedItem.lastName" label="Student Last Name"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
+                    <v-text-field readonly v-model="editedItem.studentID" label="Student Email"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field readonly v-model="editedItem.studentEmail" label="Student Email"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field readonly v-model="editedItem.Semester" label="Semester"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field readonly v-model="editedItem.Year" label="Year"></v-text-field>
+                    <v-text-field readonly v-if="editedItem.Year" v-model="editedItem.Year" label="Year"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field readonly v-model="editedItem.Subject" label="Subject"></v-text-field>
+                    <v-text-field readonly  v-if="editedItem.Subject" v-model="editedItem.Subject" label="Subject"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field readonly  v-if="editedItem.ProjectTitle" v-model="editedItem.ProjectTitle" label="Project Title"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field readonly v-model="editedItem.Units" label="Units"></v-text-field>
@@ -50,17 +56,27 @@
                     <v-text-field readonly v-model="editedItem.SupervisingInstructor" label="Supervising Instructor"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-textarea readonly v-model="editedItem.Reason" label="Reason"></v-textarea>
+                    <v-textarea readonly v-if="editedItem.Reason" v-model="editedItem.Reason" label="Reason"></v-textarea>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-textarea readonly v-model="editedItem.Description" label="Description"></v-textarea>
                   </v-col>                 
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field readonly v-model="editedItem.GPA" label="Below a 3.0 GPA?"></v-text-field>
+                    <v-text-field readonly v-if="editedItem.GPA" v-model="editedItem.GPA" label="Below a 3.0 GPA?"></v-text-field>
                   </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field readonly v-if="editedItem.StartDate" v-model="editedItem.StartDate" label="Start Date"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field readonly v-if="editedItem.EndDate" v-model="editedItem.EndDate" label="End Date"></v-text-field>
+                  </v-col>
+
                   <v-col cols="12" sm="6" md="4">
                     <v-select :items="items" v-model="editedItem.approve" label="Approve Form?"></v-select>
                   </v-col>
+                  
+                  
+                  
 
                 </v-row>
               </v-container>
@@ -116,11 +132,23 @@
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        firstName: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        username:'',
+        firstName:'',
+        lastName:'',
+        studentID:'',
+        studentEmail:'',
+        SupervisingInstructor:'',
+        Subject:'',
+        Description:'', 
+        Semester: '',
+        Year: '',
+        Units: '',
+        Reason:'',
+        GPA:'',
+        ProjectTitle:'',
+        years:'',
+        StartDate: '',
+        EndDate: '',
       },
       defaultItem: {
         firstName: '',
