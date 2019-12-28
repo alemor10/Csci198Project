@@ -57,6 +57,9 @@ app.use('/students', students);
 // Bring in the Instructor routes
 const instructors = require('./routes/Instructor');
 app.use('/instructors', instructors);
+// Bring in the Instructor routes
+const secretary = require('./routes/Secretary');
+app.use('/secretary', secretary);
 
 
 app.get('*', (req, res) => {

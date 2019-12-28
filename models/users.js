@@ -140,8 +140,32 @@ const UserSchema  = new Schema({
   bio: {
     type:String,
   },  
+
+  ApprovedByInstructor190: { type: Boolean } ,
+  ApprovedByInstructor290: { type: Boolean } ,
+  ApprovedByInstructor198: { type: Boolean } ,
+  ApprovedByInstructor298: { type: Boolean } ,
+
+  ApprovedBySecretary190:  { type: Boolean } ,
+  ApprovedBySecretary290: { type: Boolean } ,
+  ApprovedBySecretary198: { type: Boolean } ,
+  ApprovedBySecretary298: { type: Boolean } ,
+
+  permissionNumber190:  { type: String } ,
+  permissionNumber290: { type: String } ,
+  permissionNumber198: { type: String } ,
+  permissionNumber298: { type: String } ,
+  
+
   studentForms : { type : Array , "default" : [] },
+
+  
+  studentProjects : { type : Array , "default" : [] },
+
+  approvedForms : { type : Array , "default" : [] },
+
   csci190: {
+    studentUsername:{ type:String},
     formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
@@ -155,12 +179,10 @@ const UserSchema  = new Schema({
     Reason: { type: String },
     Description: { type: String },
     GPA: { type: String },
-    isApprovedByInstructor: { type: String },
-    isApprovedByChair: { type: String },
-
     DateCreated: { type: Date }
   },
   csci290: {
+    studentUsername:{ type:String},
     formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
@@ -174,8 +196,6 @@ const UserSchema  = new Schema({
     Reason: { type: String },
     Description: { type: String },
     GPA: { type: String },
-    isApprovedByInstructor: { type: String },
-    isApprovedByChair: { type: String },
     DateCreated: { type: Date },
     
   },
@@ -185,6 +205,7 @@ const UserSchema  = new Schema({
     lastName: { type: String }
   },
   csci198: {
+    studentUsername:{ type:String},
     formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
@@ -198,11 +219,10 @@ const UserSchema  = new Schema({
     EndDate: {type : String},
     SupervisingInstructor: { type: String },
     Description: { type: String },
-    isApprovedByInstructor: { type: String },
-    isApprovedByChair: { type: String },
     DateCreated: { type: Date }
   },
   csci298: {
+    studentUsername:{ type:String},
     formID: {type: String},
     firstName: { type: String },
     lastName: { type: String },
@@ -216,8 +236,6 @@ const UserSchema  = new Schema({
     EndDate: {type : String},
     SupervisingInstructor: { type: String },
     Description: { type: String },
-    isApprovedByInstructor: { type: String },
-    isApprovedByChair: { type: String },
     DateCreated: { type: Date }
   },
   csci298C: {
@@ -234,8 +252,6 @@ const UserSchema  = new Schema({
     EndDate: {type : String},
     SupervisingInstructor: { type: String },
     Description: { type: String },
-    isApprovedByInstructor: { type: String },
-    isApprovedByChair: { type: String },
     DateCreated: { type: Date }
   },
   csci299: {

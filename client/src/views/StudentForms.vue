@@ -23,7 +23,7 @@
             </v-card-title>
 
             <v-card-text>
-              <v-container>
+              <v-container class="px-0" fluid>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field readonly v-model="editedItem.firstName" label="Student First Name"></v-text-field>
@@ -70,22 +70,20 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field readonly v-if="editedItem.EndDate" v-model="editedItem.EndDate" label="End Date"></v-text-field>
                   </v-col>
-
-                  <v-col cols="12" sm="6" md="4">
-                    <v-select :items="items" v-model="editedItem.approve" label="Approve Form?"></v-select>
-                  </v-col>
                   
-                  
-                  
-
                 </v-row>
+                <v-switch 
+                  v-model="checkbox"
+                  color="red"
+                  :label="`Approve Form?: ${checkbox.toString()}`"
+                ></v-switch >
               </v-container>
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+              <v-btn @click="save" :disabled="!checkbox">submit</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -110,8 +108,10 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
   export default {
     data: () => ({
+      checkbox:false,
       forms: 'this.$store.getters.user.studentForms',
       items: ['True','False'],
       dialog: false,
@@ -132,7 +132,8 @@
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        username:'',
+        formType:'',
+        studentUsername:'',
         firstName:'',
         lastName:'',
         studentID:'',
@@ -150,12 +151,9 @@
         StartDate: '',
         EndDate: '',
       },
-      defaultItem: {
-        firstName: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+      DataForm: {
+        studentname: '',
+        formType: '',
       },
     }),
     computed: {
@@ -172,14 +170,15 @@
       this.initialize()
     },
     methods: {
+      ...mapActions(["approve198","approve298","approve190", "approve190"]), 
       initialize () {
 
       },
       editItem (item) {
-        window.console.log(item);
         this.editedIndex = this.forms.indexOf(item)
         this.editedItem = Object.assign({}, item)
-        window.console.log('hi',this.editedItem);
+        this.DataForm.studentname =  item.studentUsername
+        this.DataForm.formType = item.formType
         this.dialog = true
       },
       viewItem (item) {
@@ -194,12 +193,63 @@
         }, 300)
       },
       save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
+        var check = this.DataForm.formType
+        window.console.log(check)
+        if(check == "190")
+        {
+        
+          this.approve190(this.DataForm)
+            .then(res => {
+
+              if (res.data.success) {
+                this.$router.push("/Dashboard");
+              }
+          })
+          .catch(err => {
+            this.errormsg = err
+          });
         }
-        this.close()
+        else if(check=="290")
+        {
+          window.console.log('hi')
+          this.approve290(this.DataForm)
+            .then(res => {
+
+              if (res.data.success) {
+                this.$router.push("/Dashboard");
+              }
+          })
+          .catch(err => {
+            this.errormsg = err
+          });
+        }
+        else if(check=="198")
+        {
+          this.approve198(this.DataForm)
+            .then(res => {
+
+              if (res.data.success) {
+                this.$router.push("/Dashboard");
+              }
+          })
+          .catch(err => {
+            this.errormsg = err
+          });
+        }
+        else if(check=="298")
+        {
+          this.approve298(this.DataForm)
+            .then(res => {
+
+              if (res.data.success) {
+                window.console.log('hi')
+                this.$router.push("/Dashboard");
+              }
+          })
+          .catch(err => {
+            this.errormsg = err
+          });
+        }
       },
     },
   }

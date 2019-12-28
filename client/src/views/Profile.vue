@@ -154,11 +154,11 @@ export default {
               if (res.data.success) {
                 //window.console.log(user)
                 this.$router.push("/Dashboard");
-          }
-        })
-        .catch(err => {
-          this.errormsg = err
-        });
+              }
+          })
+          .catch(err => {
+            this.errormsg = err
+          });
         },
         ...mapActions(["getProfile","updateProfile"]),
 

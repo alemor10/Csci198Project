@@ -188,7 +188,7 @@ const actions = {
             commit('update_error', err)
         }
     },
-    //send 198 form to Instructor
+    //send 298 form to Instructor
     async submit298ToInstructor ({
         commit
     },userData) {
@@ -234,6 +234,69 @@ const actions = {
             commit('update_error', err)
         }
     },
+
+        //send 198 form to Instructor
+        async approve198 ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/instructors/approve198form', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },
+        //send 298 form to Instructor
+        async approve298 ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/instructors/approve298form', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },
+        async approve190 ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/instructors/approve190form', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },
+        async approve290 ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/instructors/approve290form', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },
 
 
 };
