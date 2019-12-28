@@ -115,7 +115,7 @@
           md="4"
         >
         <v-select
-          v-model="form.SupervisingInstructor"
+          v-model="form.supervisingInstructor"
           :items="this.$store.getters.instructors"
           label="Supervising Instructor"
           required
@@ -170,7 +170,7 @@ export default {
         lastname:this.$store.getters.user.lastname,
         studentID:this.$store.getters.user.studentID,
         studentEmail:this.$store.getters.user.email,
-        SupervisingInstructor:'',        
+        supervisingInstructor:'',        
         projectTitle:'',
         description:'', 
         semester:'',
@@ -199,8 +199,12 @@ export default {
         this.submit298Form(this.form)
           .then(res => {
             if (res.data.success) {
-              window.console.log(this.user)
-              this.$router.push("/Dashboard");
+              this.submit298ToInstructor(this.form)
+              .then(res => {
+                  if (res.data.success) {
+                    this.$router.push("/Dashboard");
+                  }
+              })
             }
         })
         .catch(err => {

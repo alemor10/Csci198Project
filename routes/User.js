@@ -61,7 +61,6 @@ router.post('/register', (req, res) => {
       newUser.password = hash;
       bcrypt.compare(req.body.password, newUser.password, function(err, res) {
         // res === true
-        console.log(res)
       });
       newUser.save().then(user => {
           return res.status(201).json({
@@ -107,8 +106,7 @@ router.post('/login', (req, res) => {
                 jwt.sign(payload, key, {
                   expiresIn: 604800
                 }, 
-                (err, token) => {  
-                    console.log(user)  
+                (err, token) => {   
                   res.status(200).json({
                     success: true,
                     token: `Bearer ${token}`,
@@ -154,7 +152,6 @@ router.post('/updateprofile', (req, res) => {
     if(req.body.studentID) objForUpdate.studentID = req.body.studentID;
     if(req.body.bio) objForUpdate.bio = req.body.bio; 
     try {
-        console.log(objForUpdate)
         User.findOneAndUpdate({
             'username': req.body.username
         },objForUpdate).then(user => {
@@ -182,7 +179,7 @@ router.get('/instructors',(req, res) => {
     var instructors = []
     User.find({role: "Instructor"}, function(err, data){
         if(err){
-            console.log(err);
+            //console.log(err);
             return
         }
     

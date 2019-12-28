@@ -140,7 +140,7 @@ router.post('/csci190', (req,res) => {
 
 router.post('/csci290', (req,res) => {
     var objForUpdate = {};
-    var str = '190'; 
+    var str = '290'; 
     objForUpdate.formID = str.concat(req.body.username);
     if(req.body.firstname) objForUpdate.firstName = req.body.firstname;
     if(req.body.lastname)  objForUpdate.lastName = req.body.lastname;

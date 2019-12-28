@@ -27,15 +27,16 @@ router.post('/send198form', (req,res) => {
     if(req.body.year) objForUpdate.Year = req.body.year;
     if(req.body.units) objForUpdate.Units = req.body.units; 
     if(req.body.projectTitle) objForUpdate.ProjectTitle = req.body.projectTitle;
-    if(req.body.startDate) objForUpdate.StartDate = req.body.startDate;
-    if(req.body.endDate) objForUpdate.EndDate = req.body.endDate;
-    if(req.body.projectDescription) objForUpdate.Description = req.body.projectDescription;
+    if(req.body.startdate) objForUpdate.StartDate = req.body.startdate;
+    if(req.body.enddate) objForUpdate.EndDate = req.body.enddate;
+    if(req.body.description) objForUpdate.Description = req.body.description;
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
     try {
         // find instructors document
         User.findOne({
         username: req.body.supervisingInstructor
         }).then(user => {
+        
             var array = user.studentForms;
             var index = array.findIndex(x => x.formID==objForUpdate.formID)
             if (index > -1) array[index] = objForUpdate;
@@ -74,8 +75,8 @@ router.post('/send298form', (req,res) => {
     if(req.body.year) objForUpdate.Year = req.body.year;
     if(req.body.units) objForUpdate.Units = req.body.units; 
     if(req.body.projectTitle) objForUpdate.ProjectTitle = req.body.projectTitle;
-    if(req.body.startDate) objForUpdate.StartDate = req.body.startDate;
-    if(req.body.endDate) objForUpdate.EndDate = req.body.endDate;
+    if(req.body.startdate) objForUpdate.StartDate = req.body.startdate;
+    if(req.body.enddate) objForUpdate.EndDate = req.body.enddate;
     if(req.body.projectDescription) objForUpdate.Description = req.body.projectDescription;
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
     try {
@@ -90,7 +91,6 @@ router.post('/send298form', (req,res) => {
                 {
                     array.push(objForUpdate);
                 }
-                console.log('hi',array)
                 user.save().then(user => {
                     return res.status(201).json({
                         success: true,
@@ -132,16 +132,13 @@ router.post('/send190form', (req,res) => {
             }).then(user => {
                 var array = user.studentForms
                 var index = array.findIndex(x => x.formID==objForUpdate.formID)
-                console.log(array[index])
                 if (index > -1) array[index] = objForUpdate;
                 
                 else
                 {
                     array.push(objForUpdate);
                 }
-                console.log(array[index]);
                 user.save().then(user => {
-                    console.log(user)
                     return res.status(201).json({
                         success: true,
                         msg: "Form is now submitted."
@@ -172,7 +169,7 @@ router.post('/send290form', (req,res) => {
     if(req.body.semester) objForUpdate.Semester = req.body.semester; 
     if(req.body.year) objForUpdate.Year = req.body.year;
     if(req.body.units) objForUpdate.Units = req.body.units; 
-    if(req.body.projectTitle) objForUpdate.ProjectTitle = req.body.projectTitle;
+    if(req.body.subject) objForUpdate.Subject = req.body.subject;
     if(req.body.supervisingInstructor) objForUpdate.SupervisingInstructor = req.body.supervisingInstructor
     if(req.body.option) objForUpdate.Reason = req.body.option;
     if(req.body.description) objForUpdate.Description = req.body.description;    
