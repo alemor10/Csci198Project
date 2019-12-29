@@ -170,7 +170,7 @@ import { mapActions } from "vuex";
       this.initialize()
     },
     methods: {
-      ...mapActions(["approve198","approve298","approve190", "approve190", "sendFormToSec"]), 
+      ...mapActions(["approve198","approve298","approve190", "approve290", "sendFormToSec"]), 
       initialize () {
 
       },
@@ -214,12 +214,14 @@ import { mapActions } from "vuex";
         }
         else if(check=="290")
         {
-          this.approve190(this.DataForm)
+          window.console.log('hi')
+          this.approve290(this.DataForm)
             .then(res => {
               if (res.data.success) {
                 this.sendFormToSec(this.editedItem)
                 .then(res => {
                   if (res.data.success) {
+                    window.console.log('hi')
                     this.$router.push("/Dashboard");
                   }
               })

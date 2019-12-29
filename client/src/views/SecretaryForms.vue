@@ -172,7 +172,7 @@ import { mapActions } from "vuex";
       this.initialize()
     },
     methods: {
-      ...mapActions(["SecApprove198","SecApprove298","SecApprove190", "SecApprove190", ]), 
+      ...mapActions(["SecApprove198","SecApprove298","SecApprove190", "SecApprove290", ]), 
       initialize () {
 
       },
@@ -196,7 +196,6 @@ import { mapActions } from "vuex";
       },
       save () {
         var check = this.DataForm.formType
-        window.console.log(check)
         if(check == "190")
         {
             window.console.log(this.DataForm)
@@ -215,6 +214,7 @@ import { mapActions } from "vuex";
           this.SecApprove290(this.DataForm)
             .then(res => {
               if (res.data.success) {
+                window.console.log('hi')
                    this.$router.push("/Dashboard");
               }
           })
