@@ -14,7 +14,7 @@ const User = require('../models/users')
 router.post('/sendform', (req,res) => {
     var objForUpdate = req.body;
     User.findOneAndUpdate({
-        'username': req.body.username
+        'role': 'Secretary'
     },{ '$addToSet': { approvedForms: objForUpdate  } }).then(user => {
         user.save().then(user => {
             console.log(user)
@@ -35,11 +35,10 @@ router.post('/sendform', (req,res) => {
  */
 
 router.post('/approve198form', (req,res) => {
-    const query = {username:req.body.studentname}
     try {
         User.findOneAndUpdate({
-            'username': req.body.username
-        },{ ApprovedBySecretary198: 'true', permissionNumber198: req.body.permissionNumber198 }).then(user => {
+            'username': req.body.studentname
+        },{ ApprovedBySecretary198: 'true', permissionNumber198: req.body.permissionNumber}).then(user => {
             user.save().then(user => {
                 return res.status(201).json({
                     success: true,
@@ -61,11 +60,10 @@ router.post('/approve198form', (req,res) => {
  */
 
 router.post('/approve298form', (req,res) => {
-    const query = {username:req.body.studentname}
     try {
         User.findOneAndUpdate({
-            'username': req.body.username
-        },{ ApprovedBySecretary298: 'true', permissionNumber298: req.body.permissionNumber298 }).then(user => {
+            'username': req.body.studentname
+        },{ ApprovedBySecretary298: 'true', permissionNumber298: req.body.permissionNumber}).then(user => {
             user.save().then(user => {
                 return res.status(201).json({
                     success: true,
@@ -87,12 +85,11 @@ router.post('/approve298form', (req,res) => {
  */
 
 router.post('/approve190form', (req,res) => {
-    const query = {username:req.body.studentname}
     console.log(req.body)
     try {
         User.findOneAndUpdate({
-            'username': req.body.username
-        },{ ApprovedBySecretary190: 'true', permissionNumber190: req.body.permissionNumber190 }).then(user => {
+            'username': req.body.studentname
+        },{ ApprovedBySecretary190: 'true', permissionNumber190: req.body.permissionNumber }).then(user => {
             user.save().then(user => {
                 return res.status(201).json({
                     success: true,
@@ -114,11 +111,10 @@ router.post('/approve190form', (req,res) => {
  */
 
 router.post('/approve290form', (req,res) => {
-    const query = {username:req.body.studentname}
     try {
         User.findOneAndUpdate({
-            'username': req.body.username
-        },{ ApprovedBySecretary290: 'true' , permissionNumber290: req.body.permissionNumber290}).then(user => {
+            'username': req.body.studentname
+        },{ ApprovedBySecretary290: 'true' , permissionNumber290: req.body.permissionNumber}).then(user => {
             user.save().then(user => {
                 return res.status(201).json({
                     success: true,

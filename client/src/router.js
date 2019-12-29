@@ -64,6 +64,15 @@ const router = new Router({
       }
     },
     {
+      path: '/secretaryforms',
+      name: 'secretaryforms',
+      component: () => import('./views/SecretaryForms.vue'),
+      meta: {
+         requiresAuth: true,
+         requiresSecretary:true
+      }
+    },
+    {
       path: '/csci190',
       name: 'csci190',
       component: () => import('./views/Forms/csci190.vue'),
@@ -159,6 +168,18 @@ router.beforeEach((to, from, next) => {
         if(store.getters.role != 'Student')
         {
           window.console.log('huh')
+          next('Dashboard');
+        }
+        else {
+
+          next();
+        }
+
+      }
+      else if(to.matched.some(record => record.meta.requiresSecretary))
+      {
+        if(store.getters.role != 'Secretary')
+        {
           next('Dashboard');
         }
         else {

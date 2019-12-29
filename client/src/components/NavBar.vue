@@ -56,6 +56,22 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+          <v-list
+      v-if="role=='Secretary'"
+      dense
+      nav
+    >
+      <v-list-item
+        v-for="item in itemsforSecretary"
+        :key="item.title"
+        :to="item.link"
+      >
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
 
 </div>
@@ -79,8 +95,10 @@ export default {
       itemsforInstructors: [
         { title:'Forms from Students', link:'/studentforms'},
         { title:'My Profile' , link: '/Profile'},
+      ],
 
-
+      itemsforSecretary: [
+        { title:'Forms from Students', link:'/secretaryforms'},
       ]
     }
   },

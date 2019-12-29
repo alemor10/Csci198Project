@@ -297,6 +297,86 @@ const actions = {
                 commit('update_error', err)
             }
         },
+        //send 198 form to Instructor
+        async sendFormToSec ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/secretary/sendform', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },        
+        
+        //send 198 form to Instructor
+        async SecApprove198 ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/secretary/approve198form', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },
+        //send 298 form to Instructor
+        async SecApprove298 ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/secretary/approve298form', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },
+        async SecApprove190 ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/secretary/approve190form', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },
+        async SecApprove290 ({
+            commit
+        },userData) {
+            try {
+                commit('profile_request');
+                let res = await axios.post('http://localhost:5000/secretary/approve290form', userData);
+                if (res.data.success) {
+                    commit('update_success');
+                }
+                return res;
+            } 
+            catch (err) {
+                commit('update_error', err)
+            }
+        },
+        
 
 
 };

@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="this.$store.getters.user.studentForms"
+    :items="this.$store.getters.user.approvedForms"
     :search="search"
     class="elevation-1"
   >
@@ -72,6 +72,7 @@
                   </v-col>
                   
                 </v-row>
+                <v-text-field v-model = "DataForm.permissionNumber" label = "Permission number for Student"> </v-text-field>
                 <v-switch 
                   v-model="checkbox"
                   color="red"
@@ -153,7 +154,8 @@ import { mapActions } from "vuex";
       },
       DataForm: {
         studentname: '',
-        formType: '',
+        formType:'',
+        permissionNumber: ''
       },
     }),
     computed: {
@@ -170,7 +172,7 @@ import { mapActions } from "vuex";
       this.initialize()
     },
     methods: {
-      ...mapActions(["approve198","approve298","approve190", "approve190", "sendFormToSec"]), 
+      ...mapActions(["SecApprove198","SecApprove298","SecApprove190", "SecApprove190", ]), 
       initialize () {
 
       },
@@ -197,15 +199,11 @@ import { mapActions } from "vuex";
         window.console.log(check)
         if(check == "190")
         {
-        this.approve190(this.DataForm)
-          .then(res => {
-            if (res.data.success) {
-              this.sendFormToSec(this.editedItem)
-              .then(res => {
-                  if (res.data.success) {
-                    this.$router.push("/Dashboard");
-                  }
-              })
+            window.console.log(this.DataForm)
+            this.SecApprove190(this.DataForm)
+            .then(res => {
+              if (res.data.success) {
+                   this.$router.push("/Dashboard");
             }
         })
         .catch(err => {
@@ -214,16 +212,11 @@ import { mapActions } from "vuex";
         }
         else if(check=="290")
         {
-          this.approve190(this.DataForm)
+          this.SecApprove290(this.DataForm)
             .then(res => {
               if (res.data.success) {
-                this.sendFormToSec(this.editedItem)
-                .then(res => {
-                  if (res.data.success) {
-                    this.$router.push("/Dashboard");
-                  }
-              })
-            }
+                   this.$router.push("/Dashboard");
+              }
           })
           .catch(err => {
             this.errormsg = err
@@ -231,16 +224,11 @@ import { mapActions } from "vuex";
         }
         else if(check=="198")
         {
-          this.approve198(this.DataForm)
+          this.SecApprove198(this.DataForm)
             .then(res => {
               if (res.data.success) {
-                this.sendFormToSec(this.editedItem)
-                .then(res => {
-                  if (res.data.success) {
-                    this.$router.push("/Dashboard");
-                  }
-              })
-            }
+                   this.$router.push("/Dashboard");
+              }
           })
           .catch(err => {
             this.errormsg = err
@@ -248,16 +236,11 @@ import { mapActions } from "vuex";
         }
         else if(check=="298")
         {
-          this.approve298(this.DataForm)
+          this.SecApprove298(this.DataForm)
             .then(res => {
               if (res.data.success) {
-                this.sendFormToSec(this.editedItem)
-                .then(res => {
-                  if (res.data.success) {
-                    this.$router.push("/Dashboard");
-                  }
-              })
-            }
+                   this.$router.push("/Dashboard");
+              }
           })
           .catch(err => {
             this.errormsg = err
